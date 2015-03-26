@@ -2,12 +2,10 @@ package dao;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
 import model.Session;
 
-public class SessionsDao extends GenericDao<Long, Session> {
-	public SessionsDao(EntityManager entityManager) {
+public class SessionDao extends GenericDao<Long, Session> {
+	public SessionDao() {
 		super();
 	}
 

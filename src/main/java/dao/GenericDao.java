@@ -23,7 +23,7 @@ public class GenericDao<PK, T> {
 				// nothing to do.
 			}
 
-			this.entityManager = factory.createEntityManager();
+			entityManager = factory.createEntityManager();
 		} else {
 			// nothing to do.
 		}

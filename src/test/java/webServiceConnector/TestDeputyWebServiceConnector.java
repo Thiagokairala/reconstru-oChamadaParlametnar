@@ -20,13 +20,19 @@ import org.junit.Test;
 import br.gov.camara.www.SitCamaraWS.Deputados.DeputadosSoapStub;
 import dao.DeputyDao;
 
-public class TestWebServiceConnector {
+public class TestDeputyWebServiceConnector {
 
 	private DeputyConnector deputyConnector;
 
 	@Before
 	public void testSetUp() {
 		deputyConnector = new DeputyConnector();
+	}
+
+	@Test
+	public void testAdsjfhaj() throws Exception {
+		DeputyDao deputyDao = new DeputyDao();
+		deputyDao.saveListOfDeputies(deputyConnector.getAllDeputies());
 	}
 
 	// @Test

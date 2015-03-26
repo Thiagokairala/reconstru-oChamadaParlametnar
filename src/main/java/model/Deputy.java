@@ -1,10 +1,15 @@
 package model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,20 +29,12 @@ public class Deputy {
 	private String politicalParty;
 	private int officeNumber;
 	private int officeBuilding;
+	@ManyToMany(cascade = { CascadeType.ALL })
+	@JoinTable(name = "deputy_session", joinColumns = { @JoinColumn(name = "deputy_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "session_id", nullable = false, updatable = false) })
+	private List<Session> sessionsAttended;
 
 	public Deputy() {
 
-	}
-
-	public Deputy(String treatmentName, String civilName,
-			String idParliamentary, String phone, String email,
-			java.util.Date nascimento) {
-		this.treatmentName = treatmentName;
-		this.civilName = civilName;
-		this.idParliamentary = idParliamentary;
-		this.phone = phone;
-		this.email = email;
-		this.nascimento = nascimento;
 	}
 
 	public String getTreatmentName() {
@@ -116,4 +113,13 @@ public class Deputy {
 	public void setOfficeBuilding(int officeBuilding) {
 		this.officeBuilding = officeBuilding;
 	}
+
+	public List<Session> getSessionsAttended() {
+		return sessionsAttended;
+	}
+
+	public void setSessionsAttended(List<Session> sessionsAttended) {
+		this.sessionsAttended = sessionsAttended;
+	}
+
 }
