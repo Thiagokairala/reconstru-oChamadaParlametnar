@@ -18,8 +18,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.gov.camara.www.SitCamaraWS.Deputados.DeputadosSoapStub;
-import dao.DeputyService;
-import dao.SimpleEntityManager;
+import dao.DeputyDao;
 
 public class TestWebServiceConnector {
 
@@ -33,16 +32,9 @@ public class TestWebServiceConnector {
 	@Test
 	public void testLoasdjfs() throws RemoteException, MalformedURLException,
 			ServiceException {
-		String persistenceUnitName = "ChamadaParlamentar";
-		SimpleEntityManager simpleEntityManager = new SimpleEntityManager(
-				persistenceUnitName);
-		DeputyService service = new DeputyService(simpleEntityManager);
+		DeputyDao deputyDao = new DeputyDao();
 		List<Deputy> deputy = deputyConnector.getAllDeputies();
-		Iterator<Deputy> dep = deputy.iterator();
-		while (dep.hasNext()) {
-			Deputy d = dep.next();
-			service.save(d);
-		}
+		deputyDao.saveList(deputy);
 	}
 
 	// @Test
