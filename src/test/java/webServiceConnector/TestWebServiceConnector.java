@@ -29,14 +29,6 @@ public class TestWebServiceConnector {
 		deputyConnector = new DeputyConnector();
 	}
 
-	@Test
-	public void testLoasdjfs() throws RemoteException, MalformedURLException,
-			ServiceException {
-		DeputyDao deputyDao = new DeputyDao();
-		List<Deputy> deputy = deputyConnector.getAllDeputies();
-		deputyDao.saveList(deputy);
-	}
-
 	// @Test
 	public void testGetConnection() throws Exception {
 		DeputadosSoapStub deputySoapStub = deputyConnector.getConnection();
