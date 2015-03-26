@@ -46,7 +46,7 @@ public class DeputyConnector {
 		deputy.setCivilName(this.getTextFromXML(deputyXML, "nome"));
 		deputy.setTreatmentName(this.getTextFromXML(deputyXML,
 				"nomeParlamentar"));
-		deputy.setRegisterId(this.getTextFromXML(deputyXML, "ideCadastro"));
+		deputy.setIdParliamentary(this.getTextFromXML(deputyXML, "ideCadastro"));
 		deputy.setGender(this.getTextFromXML(deputyXML, "sexo"));
 		deputy.setUf(this.getTextFromXML(deputyXML, "uf"));
 		deputy.setPoliticalParty(this.getTextFromXML(deputyXML, "partido"));
