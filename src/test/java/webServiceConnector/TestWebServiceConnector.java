@@ -6,6 +6,7 @@ import java.util.List;
 
 import model.Deputy;
 
+import org.apache.axis.message.MessageElement;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,23 +23,23 @@ public class TestWebServiceConnector {
 		deputyConnector = new DeputyConnector();
 	}
 
-	@Test
+	// @Test
 	public void testGetConnection() throws Exception {
 		DeputadosSoapStub deputySoapStub = deputyConnector.getConnection();
 		assertNotNull(deputySoapStub._getService());
 	}
 
-	@Test
+	// @Test
 	public void testGetDeputyResponse() throws Exception {
-		ObterDeputadosResponseObterDeputadosResult response = deputyConnector
-				.getDeputyResponse();
+		MessageElement response = deputyConnector.getDeputyResponse();
 
 		assertNotNull(response);
 	}
 
 	@Test
 	public void testGetAllDeputies() throws Exception {
-		System.out.println(deputyConnector.getAllDeputies());
+		List<Deputy> deputy = deputyConnector.getAllDeputies();
+		assertTrue(deputy.size() != 0);
 	}
 
 	@After
