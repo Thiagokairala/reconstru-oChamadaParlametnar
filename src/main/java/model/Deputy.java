@@ -8,19 +8,20 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "DEPUTY")
+@Table(name = "deputy")
 public class Deputy {
 	@Id
 	@GeneratedValue
+	private long id;
 	private String treatmentName;
 	private String civilName;
 	private String idParliamentary;
 	private String phone;
 	private String email;
 	private Date nascimento;
-	private Gender gender;
-	private Uf uf;
-	private PoliticalParty politicalParty;
+	private String gender;
+	private String uf;
+	private String politicalParty;
 	private int officeNumber;
 	private int officeBuilding;
 
@@ -93,19 +94,17 @@ public class Deputy {
 		}
 	}
 
-	public void setGender(String textFromXML) {
-		// TODO Auto-generated method stub
+	public void setGender(String gender) {
+		this.gender = gender;
 
 	}
 
-	public void setUf(String textFromXML) {
-		// TODO Auto-generated method stub
+	public void setUf(String uf) {
+		this.uf = uf;
 
 	}
 
-	public void setPoliticalParty(String politicalPartyString) {
-		PoliticalParty politicalParty = new PoliticalParty();
-		politicalParty.setAchronym(politicalPartyString);
+	public void setPoliticalParty(String politicalParty) {
 		this.politicalParty = politicalParty;
 	}
 

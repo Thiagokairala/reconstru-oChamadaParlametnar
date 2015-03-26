@@ -1,9 +1,14 @@
 package webServiceConnector;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
+import java.net.MalformedURLException;
+import java.rmi.RemoteException;
 import java.util.Iterator;
 import java.util.List;
+
+import javax.xml.rpc.ServiceException;
 
 import model.Deputy;
 
@@ -13,7 +18,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.gov.camara.www.SitCamaraWS.Deputados.DeputadosSoapStub;
-import br.gov.camara.www.SitCamaraWS.Deputados.ObterDeputadosResponseObterDeputadosResult;
+import dao.DeputyService;
+import dao.SimpleEntityManager;
 
 public class TestWebServiceConnector {
 
@@ -22,6 +28,21 @@ public class TestWebServiceConnector {
 	@Before
 	public void testSetUp() {
 		deputyConnector = new DeputyConnector();
+	}
+
+	@Test
+	public void testLoasdjfs() throws RemoteException, MalformedURLException,
+			ServiceException {
+		String persistenceUnitName = "ChamadaParlamentar";
+		SimpleEntityManager simpleEntityManager = new SimpleEntityManager(
+				persistenceUnitName);
+		DeputyService service = new DeputyService(simpleEntityManager);
+		List<Deputy> deputy = deputyConnector.getAllDeputies();
+		Iterator<Deputy> dep = deputy.iterator();
+		while (dep.hasNext()) {
+			Deputy d = dep.next();
+			service.save(d);
+		}
 	}
 
 	// @Test
@@ -37,7 +58,7 @@ public class TestWebServiceConnector {
 		assertNotNull(response);
 	}
 
-	@Test
+	// @Test
 	public void testGetAllDeputies() throws Exception {
 		List<Deputy> deputy = deputyConnector.getAllDeputies();
 		assertTrue(deputy.size() != 0);
