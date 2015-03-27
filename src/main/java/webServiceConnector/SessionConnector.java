@@ -47,7 +47,9 @@ public class SessionConnector {
 
 	private Session parseSession(MessageElement sessionXML) {
 		Session session = new Session();
-		System.out.println(sessionXML);
+
+		session.setDate(this.getTextFromXML(sessionXML, "data"));
+		session.setLegislature(this.getTextFromXML(sessionXML, "legislatura"));
 
 		return session;
 	}
@@ -72,8 +74,8 @@ public class SessionConnector {
 		return deputy;
 	}
 
-	private String getTextFromXML(MessageElement deputyXML, String nameOfTag) {
-		Node node = deputyXML.getElementsByTagName(nameOfTag).item(0);
+	private String getTextFromXML(MessageElement sessionXML, String nameOfTag) {
+		Node node = sessionXML.getElementsByTagName(nameOfTag).item(0);
 		String valueAsText = node.getFirstChild().getNodeValue();
 		return valueAsText;
 	}
