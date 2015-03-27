@@ -20,7 +20,7 @@ public class DeputyDao extends GenericDao<Long, Deputy> {
 			e.printStackTrace();
 			this.rollBack();
 		}
-		this.close();
+		super.close();
 	}
 
 	public void saveListOfDeputies(List<Deputy> deputies) {
@@ -37,10 +37,13 @@ public class DeputyDao extends GenericDao<Long, Deputy> {
 			e.printStackTrace();
 			super.rollBack();
 		}
-		this.close();
+		super.close();
 	}
 
-	public List<Deputy> findAll() {
-		return super.findAll();
+	public List<Deputy> getAllDeputies() {
+		List<Deputy> deputies = super.findAll();
+		super.close();
+		return deputies;
 	}
+
 }

@@ -8,7 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 @SuppressWarnings("unchecked")
-public class GenericDao<PK, T> {
+public abstract class GenericDao<PK, T> {
 	private static EntityManager entityManager;
 	private static EntityManagerFactory factory;
 

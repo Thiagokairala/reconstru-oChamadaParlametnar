@@ -1,11 +1,11 @@
 package dao;
 
-import java.util.ArrayList;
+import static org.junit.Assert.*;
+
 import java.util.List;
 
 import model.Deputy;
 
-import org.hibernate.metamodel.source.annotations.xml.mocker.MockHelper;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -23,5 +23,19 @@ public class TestDeputyDao {
 		Deputy deputy = new Deputy();
 		deputyDao.saveDeputy(deputy);
 		Mockito.verify(deputyDao).saveDeputy(deputy);
+	}
+
+	@Test
+	public void testGetAllDeputiesMethodCall() {
+		deputyDao.getAllDeputies();
+		Mockito.verify(deputyDao).getAllDeputies();
+	}
+
+	@Test
+	public void testGetAllDeputiesTestCloseConnection() {
+		DeputyDao deputyDao = new DeputyDao();
+
+		deputyDao.getAllDeputies();
+		assertTrue(deputyDao.getEntityManager().isOpen() == false);
 	}
 }
