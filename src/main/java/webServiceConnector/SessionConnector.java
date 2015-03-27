@@ -111,16 +111,20 @@ public class SessionConnector {
 
 		GregorianCalendar today = new GregorianCalendar();
 		int yearToBegin = this.findElectionYear(today.get(Calendar.YEAR));
+
 		GregorianCalendar dateToBegin = new GregorianCalendar(yearToBegin, 1, 1);
 
 		SimpleDateFormat df = new SimpleDateFormat();
 		df.applyPattern("dd/MM/yyyy");
 
+		String dateBeginingString = df.format(dateToBegin.getTime());
+		String dateEndString = df.format(today.getTime());
+
 		SessoesReunioesSoapStub service = this.getConnection();
+
 		ListarDiscursosSessoesCongressoEncerradasResponseListarDiscursosSessoesCongressoEncerradasResult sessions = service
-				.listarDiscursosSessoesCongressoEncerradas(
-						df.format(dateToBegin.getTime()),
-						df.format(today.getTime()));
+				.listarDiscursosSessoesCongressoEncerradas(dateBeginingString,
+						dateEndString);
 
 		MessageElement messageElement = sessions.get_any()[0];
 
