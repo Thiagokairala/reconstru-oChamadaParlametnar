@@ -1,9 +1,6 @@
 package dao;
 
-import static org.junit.Assert.*;
-
-import java.util.List;
-
+import static org.junit.Assert.assertTrue;
 import model.Deputy;
 
 import org.junit.Before;
@@ -36,6 +33,6 @@ public class TestDeputyDao {
 		DeputyDao deputyDao = new DeputyDao();
 
 		deputyDao.getAllDeputies();
-		assertTrue(deputyDao.getEntityManager().isOpen() == false);
+		assertTrue(GenericDao.getEntityManager().isOpen() == false);
 	}
 }

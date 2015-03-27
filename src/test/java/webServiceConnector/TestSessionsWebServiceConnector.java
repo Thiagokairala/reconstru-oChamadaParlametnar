@@ -14,7 +14,7 @@ public class TestSessionsWebServiceConnector {
 	public void test() throws RemoteException, MalformedURLException,
 			ServiceException {
 		SessionConnector sessionConnector = new SessionConnector();
-		System.out.println(sessionConnector.getAllSessionsResponse());
+		sessionConnector.getAllSessions();
 	}
 
 }

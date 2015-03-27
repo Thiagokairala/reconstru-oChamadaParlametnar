@@ -16,40 +16,25 @@ import model.Deputy;
 import model.Session;
 
 import org.apache.axis.message.MessageElement;
+import org.hibernate.exception.DataException;
 import org.w3c.dom.Node;
 
 import br.gov.camara.www.SitCamaraWS.Deputados.DeputadosSoapStub;
+import br.gov.camara.www.SitCamaraWS.SessoesReunioes.ListarDiscursosPlenarioResponseListarDiscursosPlenarioResult;
+import br.gov.camara.www.SitCamaraWS.SessoesReunioes.ListarDiscursosSessoesCongressoEncerradasResponseListarDiscursosSessoesCongressoEncerradasResult;
 import br.gov.camara.www.SitCamaraWS.SessoesReunioes.ListarPresencasDiaResponseListarPresencasDiaResult;
 import br.gov.camara.www.SitCamaraWS.SessoesReunioes.ListarPresencasParlamentarResponseListarPresencasParlamentarResult;
 import br.gov.camara.www.SitCamaraWS.SessoesReunioes.SessoesReunioesLocator;
 import br.gov.camara.www.SitCamaraWS.SessoesReunioes.SessoesReunioesSoapStub;
 
 public class SessionConnector {
-	public SessionConnector() {
-
-	}
-
-	// public List<Deputy> getAllDeputies() throws RemoteException,
-	// MalformedURLException, ServiceException {
-	// MessageElement deputiesXML = this.getDeputyResponse();
-	// List<Deputy> deputies = new ArrayList<Deputy>();
-	//
-	// @SuppressWarnings("unchecked")
-	// Iterator<MessageElement> iterator = deputiesXML.getChildElements();
-	//
-	// while (iterator.hasNext()) {
-	// MessageElement deputyXML = iterator.next();
-	// Deputy deputy = parseDeputy(deputyXML);
-	// deputies.add(deputy);
-	// }
-	// return deputies;
-	// }
 
 	public List<Session> getAllSessions() throws MalformedURLException,
 			RemoteException, ServiceException {
 		MessageElement sessionsXML = this.getAllSessionsResponse();
 		List<Session> sessions = new ArrayList<Session>();
 
+		System.out.println(sessionsXML);
 		Iterator<MessageElement> iterator = sessionsXML.getChildElements();
 
 		while (iterator.hasNext()) {
@@ -62,6 +47,7 @@ public class SessionConnector {
 
 	private Session parseSession(MessageElement sessionXML) {
 		Session session = new Session();
+		System.out.println(sessionXML);
 
 		return session;
 	}
@@ -112,20 +98,33 @@ public class SessionConnector {
 		return service;
 	}
 
-	public MessageElement getAllSessionsResponse()
-			throws MalformedURLException, ServiceException, RemoteException {
-		SessoesReunioesSoapStub service = this.getConnection();
+	private int findElectionYear(int currentYear) {
+		while (currentYear % 4 != 3) {
+			currentYear--;
+		}
 
-		Calendar date = new GregorianCalendar(2015, 1, 1);
-		Calendar today = new GregorianCalendar();
+		return currentYear;
+	}
+
+	public MessageElement getAllSessionsResponse() throws RemoteException,
+			MalformedURLException, ServiceException {
+
+		GregorianCalendar today = new GregorianCalendar();
+		int yearToBegin = this.findElectionYear(today.get(Calendar.YEAR));
+		GregorianCalendar dateToBegin = new GregorianCalendar(yearToBegin, 1, 1);
+
 		SimpleDateFormat df = new SimpleDateFormat();
 		df.applyPattern("dd/MM/yyyy");
 
-		ListarPresencasParlamentarResponseListarPresencasParlamentarResult sessions = service
-				.listarPresencasParlamentar(df.format(date.getTime()),
-						df.format(today.getTime()), "440");
-		MessageElement sessionsOnXML = sessions.get_any()[0];
-		return sessionsOnXML;
+		SessoesReunioesSoapStub service = this.getConnection();
+		ListarDiscursosSessoesCongressoEncerradasResponseListarDiscursosSessoesCongressoEncerradasResult sessions = service
+				.listarDiscursosSessoesCongressoEncerradas(
+						df.format(dateToBegin.getTime()),
+						df.format(today.getTime()));
+
+		MessageElement messageElement = sessions.get_any()[0];
+
+		return messageElement;
 	}
 
 	public MessageElement getSessionResponse(Calendar date)
