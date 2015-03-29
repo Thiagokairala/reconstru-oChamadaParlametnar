@@ -16,11 +16,9 @@ import javax.persistence.Table;
 @Table(name = "deputy")
 public class Deputy {
 	@Id
-	@GeneratedValue
-	private long id;
+	private int id;
 	private String treatmentName;
 	private String civilName;
-	private String idParliamentary;
 	private String phone;
 	private String email;
 	private Date nascimento;
@@ -53,20 +51,24 @@ public class Deputy {
 		this.civilName = civilName;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int idParliamentary) {
+		this.id = idParliamentary;
+	}
+
+	public void setId(String idParliamentary) {
+		this.id = Integer.parseInt(idParliamentary);
+	}
+
 	public String getPhone() {
 		return phone;
 	}
 
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-
-	public String getIdParliamentary() {
-		return idParliamentary;
-	}
-
-	public void setIdParliamentary(String idParliamentary) {
-		this.idParliamentary = idParliamentary;
 	}
 
 	public String getEmail() {

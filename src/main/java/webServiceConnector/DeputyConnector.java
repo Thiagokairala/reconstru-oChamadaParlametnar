@@ -13,7 +13,6 @@ import model.Deputy;
 
 import org.apache.axis.message.MessageElement;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import br.gov.camara.www.SitCamaraWS.Deputados.DeputadosLocator;
 import br.gov.camara.www.SitCamaraWS.Deputados.DeputadosSoapStub;
@@ -40,13 +39,32 @@ public class DeputyConnector {
 		return deputies;
 	}
 
+	public Deputy getOneDeputy(int idParliamentary) throws RemoteException,
+			MalformedURLException, ServiceException {
+		Deputy deputy = this.findTheCorrectDeputy(idParliamentary);
+		return deputy;
+	}
+
+	private Deputy findTheCorrectDeputy(int idParliamentary)
+			throws RemoteException, MalformedURLException, ServiceException {
+		List<Deputy> listOfAllDeputies = this.getAllDeputies();
+		Iterator<Deputy> iterator = listOfAllDeputies.iterator();
+		Deputy deputy;
+
+		do {
+			deputy = iterator.next();
+		} while (deputy.getId() != idParliamentary);
+
+		return deputy;
+	}
+
 	private Deputy parseDeputy(MessageElement deputyXML) {
 		Deputy deputy = new Deputy();
 
 		deputy.setCivilName(this.getTextFromXML(deputyXML, "nome"));
 		deputy.setTreatmentName(this.getTextFromXML(deputyXML,
 				"nomeParlamentar"));
-		deputy.setIdParliamentary(this.getTextFromXML(deputyXML, "ideCadastro"));
+		deputy.setId(this.getTextFromXML(deputyXML, "ideCadastro"));
 		deputy.setGender(this.getTextFromXML(deputyXML, "sexo"));
 		deputy.setUf(this.getTextFromXML(deputyXML, "uf"));
 		deputy.setPoliticalParty(this.getTextFromXML(deputyXML, "partido"));
@@ -66,6 +84,10 @@ public class DeputyConnector {
 		return valueAsText;
 	}
 
+	/********************************************************
+	 * Methods of response
+	 ********************************************************/
+
 	private MessageElement getDeputyResponse() throws RemoteException,
 			MalformedURLException, ServiceException {
 		DeputadosSoapStub service = this.getConnection();
@@ -79,7 +101,7 @@ public class DeputyConnector {
 	/************************************************************
 	 * 
 	 */
-	
+
 	/**
 	 * This method makes the first connection with the web service, getting a
 	 * stub for the soap protocol.

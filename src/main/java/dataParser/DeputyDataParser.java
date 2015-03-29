@@ -12,12 +12,15 @@ import webServiceConnector.DeputyConnector;
 import exception.WebServiceNotAvailable;
 
 public class DeputyDataParser {
-	
-	public Deputy getOneDeputy(int ) {
+
+	public Deputy getOneDeputy(int idParliamentary) {
 		Deputy deputy;
-		
-		DeputyConnector deputyConnector = new DeputyConnector();
-		deputyConnector.getOneDeputy
+
+		try {
+			deputy = this.getOneDeputyFromWebService(idParliamentary);
+		} catch (WebServiceNotAvailable e) {
+			deputy = this.getOneDeputyFromDataBase(idParliamentary);
+		}
 		return deputy;
 	}
 
@@ -36,6 +39,31 @@ public class DeputyDataParser {
 	/***********************************************************
 	 * Private methods of the class
 	 ***********************************************************/
+
+	private Deputy getOneDeputyFromWebService(int idParliamentary)
+			throws WebServiceNotAvailable {
+		DeputyConnector deputyConnector = new DeputyConnector();
+		Deputy deputy;
+		try {
+			deputy = deputyConnector.getOneDeputy(idParliamentary);
+		} catch (RemoteException e) {
+			throw new WebServiceNotAvailable(
+					"The method threw a RemoteException");
+		} catch (MalformedURLException e) {
+			throw new WebServiceNotAvailable(
+					"The method threw a MalformedURLException");
+		} catch (ServiceException e) {
+			throw new WebServiceNotAvailable(
+					"The method threw a ServiceException");
+		}
+		return deputy;
+	}
+
+	private Deputy getOneDeputyFromDataBase(long idParliamentary) {
+		DeputyDao deputyDao = new DeputyDao();
+		Deputy deputy = deputyDao.getById(idParliamentary);
+		return deputy;
+	}
 
 	private List<Deputy> getAllDeputiesFromDataBase() {
 		List<Deputy> listWithAllDeputies;

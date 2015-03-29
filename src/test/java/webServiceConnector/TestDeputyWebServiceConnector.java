@@ -1,24 +1,14 @@
 package webServiceConnector;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.net.MalformedURLException;
-import java.rmi.RemoteException;
-import java.util.Iterator;
 import java.util.List;
-
-import javax.xml.rpc.ServiceException;
 
 import model.Deputy;
 
-import org.apache.axis.message.MessageElement;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import br.gov.camara.www.SitCamaraWS.Deputados.DeputadosSoapStub;
-import dao.DeputyDao;
 
 public class TestDeputyWebServiceConnector {
 
