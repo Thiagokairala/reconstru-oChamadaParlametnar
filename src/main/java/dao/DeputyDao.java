@@ -46,9 +46,4 @@ public class DeputyDao extends GenericDao<Long, Deputy> {
 		return deputies;
 	}
 
-	public Deputy getDeputy(int idParliamentary) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
