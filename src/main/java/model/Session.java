@@ -41,6 +41,7 @@ public class Session {
 	}
 
 	public void setDate(Calendar date) {
+
 		this.date = date;
 	}
 
@@ -48,6 +49,7 @@ public class Session {
 		if (date == null) {
 			throw new IllegalArgumentException("Date cannot be null");
 		}
+
 	}
 
 	public int getLegislature() {
@@ -71,5 +73,4 @@ public class Session {
 	public void setDeputies(List<Deputy> deputies) {
 		this.deputies = deputies;
 	}
-
 }
