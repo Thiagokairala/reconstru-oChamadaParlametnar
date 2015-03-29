@@ -30,25 +30,6 @@ public class TestDeputyWebServiceConnector {
 	}
 
 	@Test
-	public void testAdsjfhaj() throws Exception {
-		DeputyDao deputyDao = new DeputyDao();
-		deputyDao.saveListOfDeputies(deputyConnector.getAllDeputies());
-	}
-
-	// @Test
-	public void testGetConnection() throws Exception {
-		DeputadosSoapStub deputySoapStub = deputyConnector.getConnection();
-		assertNotNull(deputySoapStub._getService());
-	}
-
-	// @Test
-	public void testGetDeputyResponse() throws Exception {
-		MessageElement response = deputyConnector.getDeputyResponse();
-
-		assertNotNull(response);
-	}
-
-	// @Test
 	public void testGetAllDeputies() throws Exception {
 		List<Deputy> deputy = deputyConnector.getAllDeputies();
 		assertTrue(deputy.size() != 0);

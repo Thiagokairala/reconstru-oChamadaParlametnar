@@ -66,6 +66,20 @@ public class DeputyConnector {
 		return valueAsText;
 	}
 
+	private MessageElement getDeputyResponse() throws RemoteException,
+			MalformedURLException, ServiceException {
+		DeputadosSoapStub service = this.getConnection();
+		ObterDeputadosResponseObterDeputadosResult deputies = service
+				.obterDeputados();
+		MessageElement messageElement = deputies.get_any()[0];
+
+		return messageElement;
+	}
+
+	/************************************************************
+	 * 
+	 */
+	
 	/**
 	 * This method makes the first connection with the web service, getting a
 	 * stub for the soap protocol.
@@ -74,7 +88,7 @@ public class DeputyConnector {
 	 * @throws MalformedURLException
 	 * @throws ServiceException
 	 */
-	public DeputadosSoapStub getConnection() throws MalformedURLException,
+	private DeputadosSoapStub getConnection() throws MalformedURLException,
 			ServiceException {
 		URL url;
 		url = new URL("http://www.camara.gov.br/SitCamaraWS/Deputados.asmx");
@@ -84,13 +98,4 @@ public class DeputyConnector {
 		return service;
 	}
 
-	public MessageElement getDeputyResponse() throws RemoteException,
-			MalformedURLException, ServiceException {
-		DeputadosSoapStub service = this.getConnection();
-		ObterDeputadosResponseObterDeputadosResult deputies = service
-				.obterDeputados();
-		MessageElement messageElement = deputies.get_any()[0];
-
-		return messageElement;
-	}
 }
