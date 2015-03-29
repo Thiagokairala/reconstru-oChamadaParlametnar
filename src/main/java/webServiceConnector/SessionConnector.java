@@ -12,18 +12,14 @@ import java.util.List;
 
 import javax.xml.rpc.ServiceException;
 
-import model.Deputy;
 import model.Session;
 
 import org.apache.axis.message.MessageElement;
-import org.hibernate.exception.DataException;
 import org.w3c.dom.Node;
 
+import util.DateCounter;
 import br.gov.camara.www.SitCamaraWS.Deputados.DeputadosSoapStub;
-import br.gov.camara.www.SitCamaraWS.SessoesReunioes.ListarDiscursosPlenarioResponseListarDiscursosPlenarioResult;
 import br.gov.camara.www.SitCamaraWS.SessoesReunioes.ListarDiscursosSessoesCongressoEncerradasResponseListarDiscursosSessoesCongressoEncerradasResult;
-import br.gov.camara.www.SitCamaraWS.SessoesReunioes.ListarPresencasDiaResponseListarPresencasDiaResult;
-import br.gov.camara.www.SitCamaraWS.SessoesReunioes.ListarPresencasParlamentarResponseListarPresencasParlamentarResult;
 import br.gov.camara.www.SitCamaraWS.SessoesReunioes.SessoesReunioesLocator;
 import br.gov.camara.www.SitCamaraWS.SessoesReunioes.SessoesReunioesSoapStub;
 
@@ -34,7 +30,7 @@ public class SessionConnector {
 		MessageElement sessionsXML = this.getAllSessionsResponse();
 		List<Session> sessions = new ArrayList<Session>();
 
-		System.out.println(sessionsXML);
+		@SuppressWarnings("unchecked")
 		Iterator<MessageElement> iterator = sessionsXML.getChildElements();
 
 		while (iterator.hasNext()) {
@@ -42,77 +38,20 @@ public class SessionConnector {
 			Session session = this.parseSession(sessionXML);
 			sessions.add(session);
 		}
+		
 		return sessions;
 	}
 
-	private Session parseSession(MessageElement sessionXML) {
-		Session session = new Session();
+	/************************************************************
+	 * Methods to get the xml from web service.
+	 ************************************************************/
 
-		session.setDate(this.getTextFromXML(sessionXML, "data"));
-		session.setLegislature(this.getTextFromXML(sessionXML, "legislatura"));
-
-		return session;
-	}
-
-	private Deputy parseDeputy(MessageElement deputyXML) {
-		Deputy deputy = new Deputy();
-
-		deputy.setCivilName(this.getTextFromXML(deputyXML, "nome"));
-		deputy.setTreatmentName(this.getTextFromXML(deputyXML,
-				"nomeParlamentar"));
-		deputy.setIdParliamentary(this.getTextFromXML(deputyXML, "ideCadastro"));
-		deputy.setGender(this.getTextFromXML(deputyXML, "sexo"));
-		deputy.setUf(this.getTextFromXML(deputyXML, "uf"));
-		deputy.setPoliticalParty(this.getTextFromXML(deputyXML, "partido"));
-		deputy.setOfficeNumber(Integer.parseInt(this.getTextFromXML(deputyXML,
-				"gabinete")));
-		deputy.setOfficeBuilding(Integer.parseInt(this.getTextFromXML(
-				deputyXML, "anexo")));
-		deputy.setPhone(this.getTextFromXML(deputyXML, "fone"));
-		deputy.setEmail(this.getTextFromXML(deputyXML, "email"));
-
-		return deputy;
-	}
-
-	private String getTextFromXML(MessageElement sessionXML, String nameOfTag) {
-		Node node = sessionXML.getElementsByTagName(nameOfTag).item(0);
-		String valueAsText = node.getFirstChild().getNodeValue();
-		return valueAsText;
-	}
-
-	/**
-	 * This method makes the first connection with the web service, getting a
-	 * stub for the soap protocol.
-	 * 
-	 * @return {@link DeputadosSoapStub} containing the stub of the protocol.
-	 * @throws MalformedURLException
-	 * @throws ServiceException
-	 */
-
-	public SessoesReunioesSoapStub getConnection()
-			throws MalformedURLException, ServiceException {
-		URL url;
-		url = new URL(
-				"http://www.camara.gov.br/SitCamaraWS/SessoesReunioes.asmx?wsdl");
-		SessoesReunioesSoapStub service = (SessoesReunioesSoapStub) new SessoesReunioesLocator()
-				.getSessoesReunioesSoap(url);
-
-		return service;
-	}
-
-	private int findElectionYear(int currentYear) {
-		while (currentYear % 4 != 3) {
-			currentYear--;
-		}
-
-		return currentYear;
-	}
-
-	public MessageElement getAllSessionsResponse() throws RemoteException,
+	private MessageElement getAllSessionsResponse() throws RemoteException,
 			MalformedURLException, ServiceException {
 
 		GregorianCalendar today = new GregorianCalendar();
-		int yearToBegin = this.findElectionYear(today.get(Calendar.YEAR));
+		int yearToBegin = DateCounter
+				.findElectionYear(today.get(Calendar.YEAR));
 
 		GregorianCalendar dateToBegin = new GregorianCalendar(yearToBegin, 1, 1);
 
@@ -133,18 +72,45 @@ public class SessionConnector {
 		return messageElement;
 	}
 
-	public MessageElement getSessionResponse(Calendar date)
-			throws RemoteException, MalformedURLException, ServiceException {
-		SessoesReunioesSoapStub service = this.getConnection();
+	/*****************************************************************
+	 * Methods of parse
+	 *****************************************************************/
+	private Session parseSession(MessageElement sessionXML) {
+		Session session = new Session();
 
-		SimpleDateFormat df = new SimpleDateFormat();
-		df.applyPattern("dd/MM/yyyy");
+		session.setDate(this.getTextFromXML(sessionXML, "data"));
+		session.setLegislature(this.getTextFromXML(sessionXML, "legislatura"));
 
-		ListarPresencasDiaResponseListarPresencasDiaResult sessions = service
-				.listarPresencasDia(df.format(date.getTime()), "", "", "");
+		return session;
+	}
 
-		MessageElement messageElement = sessions.get_any()[0];
+	private String getTextFromXML(MessageElement sessionXML, String nameOfTag) {
+		Node node = sessionXML.getElementsByTagName(nameOfTag).item(0);
+		String valueAsText = node.getFirstChild().getNodeValue();
+		return valueAsText;
+	}
 
-		return messageElement;
+	/*****************************************************************
+	 * Methods of connection
+	 *****************************************************************/
+
+	/**
+	 * This method makes the first connection with the web service, getting a
+	 * stub for the soap protocol.
+	 * 
+	 * @return {@link DeputadosSoapStub} containing the stub of the protocol.
+	 * @throws MalformedURLException
+	 * @throws ServiceException
+	 */
+
+	private SessoesReunioesSoapStub getConnection()
+			throws MalformedURLException, ServiceException {
+		URL url;
+		url = new URL(
+				"http://www.camara.gov.br/SitCamaraWS/SessoesReunioes.asmx?wsdl");
+		SessoesReunioesSoapStub service = (SessoesReunioesSoapStub) new SessoesReunioesLocator()
+				.getSessoesReunioesSoap(url);
+
+		return service;
 	}
 }

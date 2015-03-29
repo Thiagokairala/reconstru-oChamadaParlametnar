@@ -1,5 +1,7 @@
 package webServiceConnector;
 
+import static org.junit.Assert.*;
+
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -17,7 +19,7 @@ public class TestSessionsWebServiceConnector {
 			ServiceException {
 		SessionConnector sessionConnector = new SessionConnector();
 		List<Session> sessions = sessionConnector.getAllSessions();
-		System.out.println(sessions.size());
+		assertTrue(sessions.size() > 0);
 	}
 
 }
