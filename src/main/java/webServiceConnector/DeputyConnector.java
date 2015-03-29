@@ -116,6 +116,7 @@ public class DeputyConnector {
 		url = new URL("http://www.camara.gov.br/SitCamaraWS/Deputados.asmx");
 		DeputadosSoapStub service = (DeputadosSoapStub) new DeputadosLocator()
 				.getDeputadosSoap(url);
+		service.
 
 		return service;
 	}

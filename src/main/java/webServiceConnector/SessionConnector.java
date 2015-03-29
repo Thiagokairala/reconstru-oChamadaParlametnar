@@ -20,6 +20,7 @@ import org.w3c.dom.Node;
 import util.DateCounter;
 import br.gov.camara.www.SitCamaraWS.Deputados.DeputadosSoapStub;
 import br.gov.camara.www.SitCamaraWS.SessoesReunioes.ListarDiscursosSessoesCongressoEncerradasResponseListarDiscursosSessoesCongressoEncerradasResult;
+import br.gov.camara.www.SitCamaraWS.SessoesReunioes.ListarPresencasParlamentarResponseListarPresencasParlamentarResult;
 import br.gov.camara.www.SitCamaraWS.SessoesReunioes.SessoesReunioesLocator;
 import br.gov.camara.www.SitCamaraWS.SessoesReunioes.SessoesReunioesSoapStub;
 
@@ -38,7 +39,7 @@ public class SessionConnector {
 			Session session = this.parseSession(sessionXML);
 			sessions.add(session);
 		}
-		
+
 		return sessions;
 	}
 

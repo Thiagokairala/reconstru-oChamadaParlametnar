@@ -5,6 +5,12 @@ import model.Statistic;
 
 public class StatisticControl {
 	public Statistic calculateStatisticOfOneDeputy(Deputy deputy) {
-		return new Statistic();
+		Statistic statistic = this.calculateStatistiOfTheDeputy(deputy);
+		return statistic;
+	}
+
+	private Statistic calculateStatistiOfTheDeputy(Deputy deputy) {
+		
+		return null;
 	}
 }
