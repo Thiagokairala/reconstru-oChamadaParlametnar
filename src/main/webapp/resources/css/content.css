@@ -1,0 +1,11 @@
+@CHARSET "ISO-8859-1";
+
+.conteudo{
+	background-color: #C0C0C0;
+	margin-left: 20%;
+	margin-right: 30%;
+}
+
+.conteudo h2{
+	margin-left: 35%;
+}
