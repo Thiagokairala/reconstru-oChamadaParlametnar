@@ -74,6 +74,7 @@ public class DeputyConnector {
 				deputyXML, "anexo")));
 		deputy.setPhone(this.getTextFromXML(deputyXML, "fone"));
 		deputy.setEmail(this.getTextFromXML(deputyXML, "email"));
+		deputy.setRegistry(this.getTextFromXML(deputyXML, "matricula"));
 
 		return deputy;
 	}
