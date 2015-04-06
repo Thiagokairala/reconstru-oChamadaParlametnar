@@ -1,14 +1,39 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"  
-      xmlns:h="http://java.sun.com/jsf/html"  
-      xmlns:f="http://java.sun.com/jsf/core"  
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">  
- 
-    <ui:composition template="/templates/default/main.xhtml">
-        <ui:define name="content">            
- 
-        </ui:define>
-    </ui:composition>        
- 
-</html>  
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/default/main.xhtml">
+	<ui:define name="content">
+		<h:outputStylesheet name="css/indexStyle.css" />
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="input-group">
+					<h:form>
+						<h3>Digite o nome do seu Parlamentar:</h3>
+						<h:inputText type="text" class="form-control"
+							placeholder="Pesquise seu parlamentar..."
+							value="#{deputyControl.name}"></h:inputText>
+						<div class="btn-group" role="group" aria-label="...">
+							<h:commandButton type="button" value="Pesquisar" class="btn btn-default" action="resultadoEstatistica"></h:commandButton>
+						</div>
+					</h:form>
+				</div>
+				<div class="alert alert-warning alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close"></button>
+					<strong>Encontrei!</strong> O nome do seu deputado e:
+					#{deputyControl.name}
+				</div>
+				<!-- /input-group -->
+			</div>
+			<!-- /.col-lg-6 -->
+		</div>
+		<!-- /.row -->
+
+	</ui:define>
+</ui:composition>
+
+</html>
