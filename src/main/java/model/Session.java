@@ -23,7 +23,7 @@ public class Session {
 	@ManyToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "deputy_session", joinColumns = { @JoinColumn(name = "session_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "deputy_id", nullable = false, updatable = false) })
 	private List<Deputy> deputies;
-	private int legislature;
+	private String description;
 
 	public Calendar getDate() {
 		return date;
@@ -72,5 +72,14 @@ public class Session {
 
 	public void setDeputies(List<Deputy> deputies) {
 		this.deputies = deputies;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+
+	}
+
+	public String getDescription() {
+		return description;
 	}
 }

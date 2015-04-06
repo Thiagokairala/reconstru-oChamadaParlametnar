@@ -30,6 +30,7 @@ public class Deputy {
 	@ManyToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "deputy_session", joinColumns = { @JoinColumn(name = "deputy_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "session_id", nullable = false, updatable = false) })
 	private List<Session> sessionsAttended;
+	private String registry;
 
 	public Deputy() {
 
@@ -122,6 +123,14 @@ public class Deputy {
 
 	public void setSessionsAttended(List<Session> sessionsAttended) {
 		this.sessionsAttended = sessionsAttended;
+	}
+
+	public void setRegistry(String registry) {
+		this.registry = registry;
+	}
+
+	public String getRegistry() {
+		return registry;
 	}
 
 }

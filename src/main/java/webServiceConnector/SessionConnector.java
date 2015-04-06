@@ -3,11 +3,7 @@ package webServiceConnector;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.xml.rpc.ServiceException;
@@ -16,29 +12,26 @@ import model.Session;
 
 import org.apache.axis.message.MessageElement;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import util.DateCounter;
 import br.gov.camara.www.SitCamaraWS.Deputados.DeputadosSoapStub;
-import br.gov.camara.www.SitCamaraWS.SessoesReunioes.ListarDiscursosSessoesCongressoEncerradasResponseListarDiscursosSessoesCongressoEncerradasResult;
+
 import br.gov.camara.www.SitCamaraWS.SessoesReunioes.ListarPresencasParlamentarResponseListarPresencasParlamentarResult;
 import br.gov.camara.www.SitCamaraWS.SessoesReunioes.SessoesReunioesLocator;
 import br.gov.camara.www.SitCamaraWS.SessoesReunioes.SessoesReunioesSoapStub;
 
 public class SessionConnector {
+	private final String DEPUTY_REGISTRY = "440";
+	private final int POSITION_OF_SESSIONS = 5;
 
 	public List<Session> getAllSessions() throws MalformedURLException,
 			RemoteException, ServiceException {
 		MessageElement sessionsXML = this.getAllSessionsResponse();
 		List<Session> sessions = new ArrayList<Session>();
-
-		@SuppressWarnings("unchecked")
-		Iterator<MessageElement> iterator = sessionsXML.getChildElements();
-
-		while (iterator.hasNext()) {
-			MessageElement sessionXML = iterator.next();
-			Session session = this.parseSession(sessionXML);
-			sessions.add(session);
-		}
+		this.parseSessions(
+				sessionsXML.getChildNodes().item(POSITION_OF_SESSIONS),
+				sessions);
 
 		return sessions;
 	}
@@ -50,23 +43,16 @@ public class SessionConnector {
 	private MessageElement getAllSessionsResponse() throws RemoteException,
 			MalformedURLException, ServiceException {
 
-		GregorianCalendar today = new GregorianCalendar();
-		int yearToBegin = DateCounter
-				.findElectionYear(today.get(Calendar.YEAR));
+		DateCounter dateCounter = new DateCounter();
 
-		GregorianCalendar dateToBegin = new GregorianCalendar(yearToBegin, 1, 1);
-
-		SimpleDateFormat df = new SimpleDateFormat();
-		df.applyPattern("dd/MM/yyyy");
-
-		String dateBeginingString = df.format(dateToBegin.getTime());
-		String dateEndString = df.format(today.getTime());
+		String dateBeginingString = dateCounter.getBeginingDate();
+		String dateEndString = dateCounter.getToday();
 
 		SessoesReunioesSoapStub service = this.getConnection();
 
-		ListarDiscursosSessoesCongressoEncerradasResponseListarDiscursosSessoesCongressoEncerradasResult sessions = service
-				.listarDiscursosSessoesCongressoEncerradas(dateBeginingString,
-						dateEndString);
+		ListarPresencasParlamentarResponseListarPresencasParlamentarResult sessions = service
+				.listarPresencasParlamentar(dateBeginingString, dateEndString,
+						DEPUTY_REGISTRY);
 
 		MessageElement messageElement = sessions.get_any()[0];
 
@@ -76,19 +62,39 @@ public class SessionConnector {
 	/*****************************************************************
 	 * Methods of parse
 	 *****************************************************************/
-	private Session parseSession(MessageElement sessionXML) {
-		Session session = new Session();
+	private List<Session> parseSessions(Node item, List<Session> sessions) {
 
-		session.setDate(this.getTextFromXML(sessionXML, "data"));
-		session.setLegislature(this.getTextFromXML(sessionXML, "legislatura"));
+		NodeList nodeList = item.getChildNodes();
 
-		return session;
+		int size = nodeList.getLength();
+		for (int i = 0; i < size; i++) {
+			try {
+				if (nodeList.item(i).getNodeName().equalsIgnoreCase("sessao")) {
+					Session session = this.parseSession(nodeList.item(i));
+					sessions.add(session);
+				} else {
+					parseSessions(nodeList.item(i), sessions);
+				}
+			} catch (NullPointerException e) {
+				// nothing to do.
+			}
+		}
+
+		return sessions;
 	}
 
-	private String getTextFromXML(MessageElement sessionXML, String nameOfTag) {
-		Node node = sessionXML.getElementsByTagName(nameOfTag).item(0);
-		String valueAsText = node.getFirstChild().getNodeValue();
-		return valueAsText;
+	private Session parseSession(Node item) {
+		Session session = new Session();
+		MessageElement messageElement = (MessageElement) item;
+		String descriptionPlusDate = messageElement
+				.getElementsByTagName("descricao").item(0).getFirstChild()
+				.getNodeValue();
+
+		String[] splitDescription = descriptionPlusDate.split("-");
+		session.setDate(splitDescription[1].substring(1));
+		session.setDescription(splitDescription[0]);
+
+		return session;
 	}
 
 	/*****************************************************************

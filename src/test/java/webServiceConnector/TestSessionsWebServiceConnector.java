@@ -19,7 +19,10 @@ public class TestSessionsWebServiceConnector {
 			ServiceException {
 		SessionConnector sessionConnector = new SessionConnector();
 		List<Session> sessions = sessionConnector.getAllSessions();
-		assertTrue(sessions.size() > 0);
+		System.out.println(sessions.size());
+		for (Session session : sessions) {
+			System.out.println(session.getDescription() + "- " + session.getDate().getTime());
+		}
 	}
 
 }
