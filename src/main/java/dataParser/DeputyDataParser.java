@@ -21,6 +21,8 @@ public class DeputyDataParser {
 		} catch (WebServiceNotAvailable e) {
 			deputy = this.getOneDeputyFromDataBase(idParliamentary);
 		}
+
+		assert (deputy != null);
 		return deputy;
 	}
 
@@ -33,6 +35,8 @@ public class DeputyDataParser {
 			listWithAllDeputies = this.getAllDeputiesFromDataBase();
 		}
 
+		assert (listWithAllDeputies != null);
+		assert (listWithAllDeputies.size() != 0);
 		return listWithAllDeputies;
 	}
 

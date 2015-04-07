@@ -14,9 +14,9 @@ import org.apache.axis.message.MessageElement;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import exception.WebServiceNotAvailable;
 import util.DateCounter;
 import br.gov.camara.www.SitCamaraWS.Deputados.DeputadosSoapStub;
-
 import br.gov.camara.www.SitCamaraWS.SessoesReunioes.ListarPresencasParlamentarResponseListarPresencasParlamentarResult;
 import br.gov.camara.www.SitCamaraWS.SessoesReunioes.SessoesReunioesLocator;
 import br.gov.camara.www.SitCamaraWS.SessoesReunioes.SessoesReunioesSoapStub;
@@ -25,9 +25,9 @@ public class SessionConnector {
 	private final String DEPUTY_REGISTRY = "440";
 	private final int POSITION_OF_SESSIONS = 5;
 
-	public List<Session> getAllSessions() throws MalformedURLException,
-			RemoteException, ServiceException {
-		MessageElement sessionsXML = this.getAllSessionsResponse();
+	public List<Session> getAllSessions() throws RemoteException, MalformedURLException, ServiceException  {
+		MessageElement sessionsXML;
+		sessionsXML = this.getAllSessionsResponse();
 		List<Session> sessions = new ArrayList<Session>();
 		this.parseSessions(
 				sessionsXML.getChildNodes().item(POSITION_OF_SESSIONS),

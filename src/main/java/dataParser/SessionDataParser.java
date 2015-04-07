@@ -1,0 +1,54 @@
+package dataParser;
+
+import java.net.MalformedURLException;
+import java.rmi.RemoteException;
+import java.util.List;
+
+import javax.xml.rpc.ServiceException;
+
+import dao.SessionDao;
+import exception.WebServiceNotAvailable;
+import model.Session;
+import webServiceConnector.SessionConnector;
+
+public class SessionDataParser {
+	public List<Session> getAllSessions() {
+		List<Session> listWithAllSessions;
+
+		try {
+			listWithAllSessions = this.getAllSessionsFromWS();
+		} catch (WebServiceNotAvailable e) {
+			listWithAllSessions = this.getAllSessionsFromDB();
+		}
+
+		assert (listWithAllSessions != null);
+		assert (listWithAllSessions.size() != 0);
+
+		return listWithAllSessions;
+	}
+
+	/****************************************************************
+	 * Private methods
+	 ****************************************************************/
+	private List<Session> getAllSessionsFromWS() throws WebServiceNotAvailable {
+		SessionConnector sessionConnector = new SessionConnector();
+		List<Session> listWithSession;
+		try {
+			listWithSession = sessionConnector.getAllSessions();
+		} catch (RemoteException e) {
+			throw new WebServiceNotAvailable("RemoteException");
+		} catch (MalformedURLException e) {
+			throw new WebServiceNotAvailable("MalformedURLException");
+		} catch (ServiceException e) {
+			throw new WebServiceNotAvailable("ServiceException");
+		}
+
+		return listWithSession;
+	}
+
+	private List<Session> getAllSessionsFromDB() {
+		SessionDao sessionDao = new SessionDao();
+		List<Session> listWithAllSessions = sessionDao.getAllSessions();
+		return listWithAllSessions;
+	}
+}

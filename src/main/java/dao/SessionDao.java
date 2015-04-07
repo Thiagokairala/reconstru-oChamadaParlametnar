@@ -21,7 +21,7 @@ public class SessionDao extends GenericDao<Long, Session> {
 		}
 	}
 
-	public List<Session> findAll() {
+	public List<Session> getAllSessions() {
 		return super.findAll();
 	}
 }
