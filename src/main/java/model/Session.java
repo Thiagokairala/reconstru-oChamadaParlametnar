@@ -52,20 +52,6 @@ public class Session {
 
 	}
 
-	public int getLegislature() {
-		return legislature;
-	}
-
-	public void setLegislature(int legislature) {
-		this.legislature = legislature;
-	}
-
-	public void setLegislature(String legislature) {
-		int legislatureInt = Integer.parseInt(legislature);
-
-		this.legislature = legislatureInt;
-	}
-
 	public List<Deputy> getDeputies() {
 		return deputies;
 	}
