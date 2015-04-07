@@ -9,6 +9,7 @@ import javax.xml.rpc.ServiceException;
 import dao.DeputyDao;
 import model.Deputy;
 import webServiceConnector.DeputyConnector;
+import exception.DeputyNotFoundException;
 import exception.WebServiceNotAvailable;
 
 public class DeputyDataParser {
@@ -38,6 +39,26 @@ public class DeputyDataParser {
 		assert (listWithAllDeputies != null);
 		assert (listWithAllDeputies.size() != 0);
 		return listWithAllDeputies;
+	}
+
+	public Deputy getOneDeputy(String deputyName)
+			throws DeputyNotFoundException {
+		List<Deputy> deputies = this.getAllDeputies();
+		Deputy deputyComplete = null;
+
+		for (Deputy deputy : deputies) {
+			boolean exists = deputy.getCivilName().equalsIgnoreCase(deputyName)
+					|| deputy.getTreatmentName().equalsIgnoreCase(deputyName);
+			if (exists) {
+				deputyComplete = deputy;
+			}
+		}
+
+		if (deputyComplete == null) {
+			throw new DeputyNotFoundException("Invalid username");
+		} else {
+			return deputyComplete;
+		}
 	}
 
 	/***********************************************************
@@ -96,4 +117,5 @@ public class DeputyDataParser {
 					"The method threw a ServiceException");
 		}
 	}
+
 }

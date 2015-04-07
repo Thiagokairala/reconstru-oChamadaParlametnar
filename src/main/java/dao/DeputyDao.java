@@ -46,4 +46,10 @@ public class DeputyDao extends GenericDao<Long, Deputy> {
 		return deputies;
 	}
 
+	public void update(Deputy deputy) {
+		super.beginTransaction();
+		super.update(deputy);
+		super.commit();
+	}
+
 }

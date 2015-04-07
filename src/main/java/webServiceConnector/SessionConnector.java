@@ -8,13 +8,13 @@ import java.util.List;
 
 import javax.xml.rpc.ServiceException;
 
+import model.Deputy;
 import model.Session;
 
 import org.apache.axis.message.MessageElement;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import exception.WebServiceNotAvailable;
 import util.DateCounter;
 import br.gov.camara.www.SitCamaraWS.Deputados.DeputadosSoapStub;
 import br.gov.camara.www.SitCamaraWS.SessoesReunioes.ListarPresencasParlamentarResponseListarPresencasParlamentarResult;
@@ -25,9 +25,10 @@ public class SessionConnector {
 	private final String DEPUTY_REGISTRY = "440";
 	private final int POSITION_OF_SESSIONS = 5;
 
-	public List<Session> getAllSessions() throws RemoteException, MalformedURLException, ServiceException  {
+	public List<Session> getAllSessions() throws RemoteException,
+			MalformedURLException, ServiceException {
 		MessageElement sessionsXML;
-		sessionsXML = this.getAllSessionsResponse();
+		sessionsXML = this.getAllSessionsResponse(DEPUTY_REGISTRY);
 		List<Session> sessions = new ArrayList<Session>();
 		this.parseSessions(
 				sessionsXML.getChildNodes().item(POSITION_OF_SESSIONS),
@@ -36,12 +37,37 @@ public class SessionConnector {
 		return sessions;
 	}
 
+	public List<Session> getAllSessions(Deputy deputy) throws RemoteException,
+			MalformedURLException, ServiceException {
+		MessageElement sessionsXML;
+		sessionsXML = this.getAllSessionsResponse(deputy.getRegistry());
+		List<Session> sessions = new ArrayList<Session>();
+		this.parseSessions(
+				sessionsXML.getChildNodes().item(POSITION_OF_SESSIONS),
+				sessions);
+		sessions = this.removeAbsentSessions(sessions);
+		return sessions;
+	}
+
+	private List<Session> removeAbsentSessions(List<Session> sessions) {
+		List<Session> presentSessions = new ArrayList<Session>();
+		for (Session session : sessions) {
+			if (session.isPresent()) {
+				presentSessions.add(session);
+			} else {
+				// Nothing to do.
+			}
+		}
+
+		return presentSessions;
+	}
+
 	/************************************************************
 	 * Methods to get the xml from web service.
 	 ************************************************************/
 
-	private MessageElement getAllSessionsResponse() throws RemoteException,
-			MalformedURLException, ServiceException {
+	private MessageElement getAllSessionsResponse(String registry)
+			throws RemoteException, MalformedURLException, ServiceException {
 
 		DateCounter dateCounter = new DateCounter();
 
@@ -52,7 +78,7 @@ public class SessionConnector {
 
 		ListarPresencasParlamentarResponseListarPresencasParlamentarResult sessions = service
 				.listarPresencasParlamentar(dateBeginingString, dateEndString,
-						DEPUTY_REGISTRY);
+						registry);
 
 		MessageElement messageElement = sessions.get_any()[0];
 
@@ -89,6 +115,13 @@ public class SessionConnector {
 		String descriptionPlusDate = messageElement
 				.getElementsByTagName("descricao").item(0).getFirstChild()
 				.getNodeValue();
+		String isPresent = messageElement.getElementsByTagName("frequencia")
+				.item(0).getFirstChild().getNodeValue();
+		if (isPresent.equalsIgnoreCase("Presença")) {
+			session.setPresent(true);
+		} else {
+			session.setPresent(false);
+		}
 
 		String[] splitDescription = descriptionPlusDate.split("-");
 		session.setDate(splitDescription[1].substring(1));
@@ -120,4 +153,5 @@ public class SessionConnector {
 
 		return service;
 	}
+
 }

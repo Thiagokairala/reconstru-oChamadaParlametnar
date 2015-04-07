@@ -8,6 +8,7 @@ import javax.xml.rpc.ServiceException;
 
 import dao.SessionDao;
 import exception.WebServiceNotAvailable;
+import model.Deputy;
 import model.Session;
 import webServiceConnector.SessionConnector;
 
@@ -19,6 +20,21 @@ public class SessionDataParser {
 			listWithAllSessions = this.getAllSessionsFromWS();
 		} catch (WebServiceNotAvailable e) {
 			listWithAllSessions = this.getAllSessionsFromDB();
+		}
+
+		assert (listWithAllSessions != null);
+		assert (listWithAllSessions.size() != 0);
+
+		return listWithAllSessions;
+	}
+
+	public List<Session> getAllSessions(Deputy deputy) {
+		List<Session> listWithAllSessions;
+
+		try {
+			listWithAllSessions = this.getAllSessionsFromWS(deputy);
+		} catch (WebServiceNotAvailable e) {
+			listWithAllSessions = deputy.getSessionsAttended();
 		}
 
 		assert (listWithAllSessions != null);
@@ -46,9 +62,27 @@ public class SessionDataParser {
 		return listWithSession;
 	}
 
+	private List<Session> getAllSessionsFromWS(Deputy deputy)
+			throws WebServiceNotAvailable {
+		SessionConnector sessionConnector = new SessionConnector();
+		List<Session> listWithSession;
+		try {
+			listWithSession = sessionConnector.getAllSessions(deputy);
+		} catch (RemoteException e) {
+			throw new WebServiceNotAvailable("RemoteException");
+		} catch (MalformedURLException e) {
+			throw new WebServiceNotAvailable("MalformedURLException");
+		} catch (ServiceException e) {
+			throw new WebServiceNotAvailable("ServiceException");
+		}
+
+		return listWithSession;
+	}
+
 	private List<Session> getAllSessionsFromDB() {
 		SessionDao sessionDao = new SessionDao();
 		List<Session> listWithAllSessions = sessionDao.getAllSessions();
 		return listWithAllSessions;
 	}
+
 }

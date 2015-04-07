@@ -24,6 +24,7 @@ public class Session {
 	@JoinTable(name = "deputy_session", joinColumns = { @JoinColumn(name = "session_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "deputy_id", nullable = false, updatable = false) })
 	private List<Deputy> deputies;
 	private String description;
+	private transient boolean isPresent;
 
 	public Calendar getDate() {
 		return date;
@@ -68,4 +69,14 @@ public class Session {
 	public String getDescription() {
 		return description;
 	}
+
+	public boolean isPresent() {
+		return isPresent;
+	}
+
+	public void setPresent(boolean isPresent) {
+		this.isPresent = isPresent;
+	}
+	
+	
 }
