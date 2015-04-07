@@ -12,15 +12,5 @@ import org.junit.Test;
 
 public class TestSessionsWebServiceConnector {
 
-	@Test
-	public void test() throws RemoteException, MalformedURLException,
-			ServiceException {
-		SessionConnector sessionConnector = new SessionConnector();
-		List<Session> sessions = sessionConnector.getAllSessions();
-		System.out.println(sessions.size());
-		for (Session session : sessions) {
-			System.out.println(session.getDescription() + "- " + session.getDate().getTime());
-		}
-	}
 
 }

@@ -9,7 +9,7 @@ import dataParser.DeputyDataParser;
 import dataParser.SessionDataParser;
 import exception.DeputyNotFoundException;
 
-public class deputyControl {
+public class DeputyControl {
 	private DeputyDataParser deputyDataParser = new DeputyDataParser();
 	private SessionDataParser sessionDataParser = new SessionDataParser();
 
@@ -19,7 +19,7 @@ public class deputyControl {
 		Deputy deputy = this.prepareDeputy(deputyName);
 		statistic.setDeputy(deputy);
 		int numberOfSessions = this.getNumberOfSessions();
-		statistic.setSessionsAttended(numberOfSessions);
+		statistic.setTotalOfSessions(numberOfSessions);
 		int numberOfSessionsAttended = this.getNumberOfSessionsAttended(deputy);
 		statistic.setSessionsAttended(numberOfSessionsAttended);
 
