@@ -13,7 +13,7 @@
 					<h3>Digite o nome do seu Parlamentar:</h3>
 					<h:inputText type="text" class="form-control"
 						placeholder="Pesquise seu parlamentar..."
-						value="#{deputyControl.name}"></h:inputText>
+						value="#{deputyMB.nameDeputy}"></h:inputText>
 					<div class="btn-group" role="group" aria-label="...">
 						<h:outputLink value="resultadoEstatistica.jsf">Pesquisar!</h:outputLink>
 					</div>
@@ -23,7 +23,7 @@
 				<button type="button" class="close" data-dismiss="alert"
 					aria-label="Close"></button>
 				<strong>Encontrei!</strong> O nome do seu deputado e:
-				#{deputyControl.name}
+				#{deputyMB.nameDeputy}
 			</div>
 			<!-- /input-group -->
 		</div>
