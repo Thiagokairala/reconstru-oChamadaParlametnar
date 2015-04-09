@@ -1,0 +1,8 @@
+/* 
+* @author Rafael Fazzolino - RafaelFazzolino
+* This CSS is to router of Styles CSS on cascate customized for the project "Chamada Parlamentar"*/
+
+
+@import url("/personalStyles/content.css");
+@import url("/personalStyles/indexStyle.css");
+@import url("/personalStyles/nosStyle.css");

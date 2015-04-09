@@ -6,10 +6,13 @@ import java.util.List;
 
 import javax.xml.rpc.ServiceException;
 
-import dao.DeputyDao;
 import model.Deputy;
 import webServiceConnector.DeputyConnector;
+
 import exception.DeputyNotFoundException;
+
+import dao.DeputyDao;
+
 import exception.WebServiceNotAvailable;
 
 public class DeputyDataParser {
