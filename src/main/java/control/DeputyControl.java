@@ -1,5 +1,6 @@
 package control;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Deputy;
@@ -26,6 +27,24 @@ public class DeputyControl {
 		return statistic;
 	}
 
+	public List<String> getAllNameOfAllDeputies() {
+		List<Deputy> allDeputies = deputyDataParser.getAllDeputies();
+		List<String> allNames = new ArrayList<String>();
+		for (Deputy deputy : allDeputies) {
+			String civilName = deputy.getCivilName();
+			String treatmentName = deputy.getTreatmentName();
+
+			allNames.add(civilName);
+			allNames.add(treatmentName);
+		}
+		return allNames;
+	}
+
+	public List<Deputy> getAllDeputies() {
+		List<Deputy> allDeputies = deputyDataParser.getAllDeputies();
+		return allDeputies;
+	}
+
 	private Deputy prepareDeputy(String deputyName)
 			throws DeputyNotFoundException {
 		Deputy deputy = deputyDataParser.getOneDeputy(deputyName);
@@ -48,4 +67,5 @@ public class DeputyControl {
 
 		return numberOfSessions;
 	}
+
 }

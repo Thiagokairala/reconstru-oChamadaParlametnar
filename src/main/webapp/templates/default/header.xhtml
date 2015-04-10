@@ -1,28 +1,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
- 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+ 	
+	<h:outputScript library="primefaces" name="jquery/jquery.js"/>
+	<h:outputScript library="primefaces" name="jquery/jquery-plugins.js"/>
+    
     <ui:composition>
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="index.jsf">Chamada Parlamentar</a>
+                	<p:link outcome="index" value="Chamada Parlamentar" styleClass="navbar-brand header-link" />
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="https://github.com/Thiagokairala/reconstru-oChamadaParlametnar">Código Fonte: <img src="images/github.png" /></a></li>
-                        <li><a href="http://dados.gov.br/dados-abertos/">Lei dos Dados Abertos</a></li>
-                        <li><a href="sobre.jsf">Nós</a></li>
-                        <li><a href="help.jsf">Ajuda</a></li>
+                    	<li>
+	                    	<p:link href="https://github.com/Thiagokairala/reconstru-oChamadaParlametnar">
+	        					<h:outputText value="Código Fonte:" />
+	        					<p:graphicImage url="/images/github.png" />
+	    					</p:link>
+    					</li>
+                        <li>
+                        	<p:link href="http://dados.gov.br/dados-abertos/">
+	        					<h:outputText value="Lei dos Dados Abertos" />
+	    					</p:link>
+    					</li>
+                        <li>
+                        	<p:link outcome="about" value="Nós" />
+                       	</li>
+                        <li>
+                        	<p:link outcome="help" value="Ajuda" />
+                        </li>
                     </ul>
-                    <form class="navbar-form navbar-right">
-                        <input type="text" class="form-control" placeholder="Pesquise seu Parlamentar..." />
-                    </form>
+                    <h:form class="navbar-form navbar-right" onsubmit="#{deputyMB.statistics}">
+                		<p:autoComplete value="#{deputyMB.deputyName}"
+							completeMethod="#{autoComplete.completeDeputies}" />
+                		
+                    </h:form>
                 </div>
             </div>
         </div>

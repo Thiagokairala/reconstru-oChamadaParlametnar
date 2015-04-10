@@ -1,36 +1,35 @@
 package jsfConnection;
 
-import java.util.List;
-
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 
 import model.Deputy;
 
-@ManagedBean (name = "deputyMB")
-@ViewScoped
+@ManagedBean
+@SessionScoped
 public class DeputyMB {
-
-	/*@ManagedProperty(value = "#{deputyBO}")
-	private DeputyMB deputyBO;
-	*/
 	private Deputy deputy;
-	private List<Deputy> deputies;
-	private List<Deputy> treatmentName;
-	private int clicou = 1;
-	public void setNameDeputy(String name) {
-		deputy = new Deputy();
-		deputy.setTreatmentName(name);
-		clicou = 0;
+	private String deputyName;
+
+	public String getStatistics() {
+		
+		return "resultadoEstatistica";
 	}
-	
-	public String getNameDeputy() {
-		if(clicou == 0){
-			return deputy.getTreatmentName();
-		} else{
-			return null;
-		}
-		}
+
+	public Deputy getDeputy() {
+		return deputy;
+	}
+
+	public void setDeputy(Deputy deputy) {
+		this.deputy = deputy;
+	}
+
+	public String getDeputyName() {
+		return deputyName;
+	}
+
+	public void setDeputyName(String deputyName) {
+		this.deputyName = deputyName;
+	}
 
 }

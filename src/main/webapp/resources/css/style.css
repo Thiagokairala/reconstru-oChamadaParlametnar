@@ -1,0 +1,44 @@
+@CHARSET "UTF-8";
+
+.conteudo {
+	background-color: #C0C0C0;
+	margin-left: 20%;
+	margin-right: 30%;
+}
+
+.conteudo h2 {
+	margin-left: 35%;
+}
+
+.row {
+	margin-left: 20%;
+}
+
+.projectHelp {
+	margin-left: 20%;
+	margin-top: 1%;
+	margin-right: 10%;
+}
+
+.progress {
+	margin-left: 20%;
+	margin-top: 3%;
+	margin-right: 10%;
+}
+
+.title {
+	margin-left: 20%; . descricaoProjetoNos { margin-left : 20%;
+	margin-top: 1%;
+	margin-right: 10%;
+}
+
+.descricaoProjetoNos {
+	margin-left: 20%;
+	margin-top: 1%;
+	margin-right: 10%;
+}
+
+.ranking {
+	margin-left: 20%;
+	margin-top: 1%;
+}
