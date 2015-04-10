@@ -64,6 +64,13 @@ public class DeputyDataParser {
 		}
 	}
 
+	public List<Deputy> getAllDeputiesFromDB() {
+		List<Deputy> deputies = this.getAllDeputiesFromDB();
+
+		assert (deputies.size() != 0);
+		return deputies;
+	}
+
 	/***********************************************************
 	 * Private methods of the class
 	 ***********************************************************/

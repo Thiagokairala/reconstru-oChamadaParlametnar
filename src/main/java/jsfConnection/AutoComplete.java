@@ -5,14 +5,15 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 
+import control.DeputyControl;
+
 @ManagedBean
 public class AutoComplete {
 
 	public List<String> completeDeputies(String prefix) {
 		List<String> deputies = new ArrayList<String>();
-		for (int i = 0; i < 10; i++) {
-			deputies.add(Integer.toString(i));
-		}
+		DeputyControl deputyControl = new DeputyControl();
+		deputies = deputyControl.getAllNameOfAllDeputies(prefix);
 
 		return deputies;
 	}

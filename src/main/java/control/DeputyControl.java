@@ -28,7 +28,7 @@ public class DeputyControl {
 	}
 
 	public List<String> getAllNameOfAllDeputies() {
-		List<Deputy> allDeputies = deputyDataParser.getAllDeputies();
+		List<Deputy> allDeputies = deputyDataParser.getAllDeputiesFromDB();
 		List<String> allNames = new ArrayList<String>();
 		for (Deputy deputy : allDeputies) {
 			String civilName = deputy.getCivilName();
@@ -36,6 +36,28 @@ public class DeputyControl {
 
 			allNames.add(civilName);
 			allNames.add(treatmentName);
+		}
+		return allNames;
+	}
+
+	public List<String> getAllNameOfAllDeputies(String prefix) {
+		List<Deputy> allDeputies = deputyDataParser.getAllDeputiesFromDB();
+
+		List<String> allNames = new ArrayList<String>();
+		for (Deputy deputy : allDeputies) {
+			if (deputy.getCivilName().toLowerCase()
+					.startsWith(prefix.toLowerCase())) {
+				allNames.add(deputy.getCivilName());
+			} else {
+				// nothing to do.
+			}
+
+			if (deputy.getTreatmentName().toLowerCase()
+					.startsWith(prefix.toLowerCase())) {
+				allNames.add(deputy.getTreatmentName());
+			} else {
+				// nothing to do.
+			}
 		}
 		return allNames;
 	}
