@@ -45,6 +45,7 @@ public class DeputyControl {
 
 		List<String> allNames = new ArrayList<String>();
 		for (Deputy deputy : allDeputies) {
+			System.out.println(deputy.getCivilName());
 			if (deputy.getCivilName().toLowerCase()
 					.startsWith(prefix.toLowerCase())) {
 				allNames.add(deputy.getCivilName());

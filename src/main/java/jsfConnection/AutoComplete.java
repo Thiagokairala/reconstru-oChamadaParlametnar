@@ -14,7 +14,6 @@ public class AutoComplete {
 		List<String> deputies = new ArrayList<String>();
 		DeputyControl deputyControl = new DeputyControl();
 		deputies = deputyControl.getAllNameOfAllDeputies(prefix);
-
 		return deputies;
 	}
 }

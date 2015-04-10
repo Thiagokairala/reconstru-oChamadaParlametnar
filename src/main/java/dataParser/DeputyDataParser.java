@@ -65,7 +65,7 @@ public class DeputyDataParser {
 	}
 
 	public List<Deputy> getAllDeputiesFromDB() {
-		List<Deputy> deputies = this.getAllDeputiesFromDB();
+		List<Deputy> deputies = this.getAllDeputiesFromDataBase();
 
 		assert (deputies.size() != 0);
 		return deputies;
