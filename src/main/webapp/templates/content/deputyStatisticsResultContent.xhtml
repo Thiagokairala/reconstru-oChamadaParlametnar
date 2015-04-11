@@ -7,7 +7,12 @@
 
 <ui:composition>
 	<div class="row">
-		<h3>Encontramos o seu parlamentar!!</h3>
+			<p:ring id="custom" value="#{deputyMB.ring}" var="information"
+				easing="easeInOutBack" styleClass="deputy-ring-information">
+				<h5>#{information.property}</h5>
+				<p>#{information.propertyValue}</p>
+			</p:ring>
+			<p:chart type="pie" model="#{deputyMB.pieChart}" />
 	</div>
 	<!-- /.row -->
 </ui:composition>

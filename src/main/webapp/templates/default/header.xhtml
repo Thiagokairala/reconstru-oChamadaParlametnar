@@ -30,9 +30,12 @@
                         	<p:link outcome="help" value="Ajuda" />
                         </li>
                     </ul>
-                    <h:form class="navbar-form navbar-right" onsubmit="#{deputyMB.statistics}">
+                    <h:form class="navbar-form navbar-right" action="#{deputyMB.generateStatistics}">
                 		<p:autoComplete value="#{deputyMB.deputyName}"
 							completeMethod="#{autoComplete.completeDeputies}" />
+						<div class="invisible-submit" style="visibility: hidden;">
+							<h:commandButton action="#{deputyMB.generateStatistics}" />
+						</div>
                     </h:form>
                 </div>
             </div>
