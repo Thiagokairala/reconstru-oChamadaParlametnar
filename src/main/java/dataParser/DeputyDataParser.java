@@ -7,12 +7,11 @@ import java.util.List;
 import javax.xml.rpc.ServiceException;
 
 import model.Deputy;
+import model.PoliticalParty;
 import webServiceConnector.DeputyConnector;
-
-import exception.DeputyNotFoundException;
-
 import dao.DeputyDao;
-
+import dao.PoliticalPartyDao;
+import exception.DeputyNotFoundException;
 import exception.WebServiceNotAvailable;
 
 public class DeputyDataParser {
@@ -28,6 +27,30 @@ public class DeputyDataParser {
 
 		assert (deputy != null);
 		return deputy;
+	}
+
+	public List<PoliticalParty> getAllPoliticalParties() {
+		List<PoliticalParty> politicalParties;
+
+		try {
+			politicalParties = this.getAllPoliticalPartiesFromWebService();
+		} catch (WebServiceNotAvailable e) {
+			politicalParties = this.getAllPoliticalPartiesFromDataBase();
+		}
+		assert (politicalParties != null);
+		assert (politicalParties.size() > 0);
+
+		return politicalParties;
+	}
+
+	public List<PoliticalParty> getAllPoliticalPartiesFromDataBase() {
+		PoliticalPartyDao politicaPartyDao = new PoliticalPartyDao();
+		List<PoliticalParty> politicalParties = politicaPartyDao
+				.getAllPoliticalParties();
+		
+		assert (politicalParties != null);
+		assert (politicalParties.size() > 0);
+		return politicalParties;
 	}
 
 	public List<Deputy> getAllDeputies() {
@@ -74,6 +97,25 @@ public class DeputyDataParser {
 	/***********************************************************
 	 * Private methods of the class
 	 ***********************************************************/
+
+	private List<PoliticalParty> getAllPoliticalPartiesFromWebService()
+			throws WebServiceNotAvailable {
+		DeputyConnector deputyConnector = new DeputyConnector();
+		List<PoliticalParty> politicalParties;
+		try {
+			politicalParties = deputyConnector.getAllPoliticalParties();
+		} catch (RemoteException e) {
+			throw new WebServiceNotAvailable(
+					"The method threw a RemoteException");
+		} catch (MalformedURLException e) {
+			throw new WebServiceNotAvailable(
+					"The method threw a MalformedURLException");
+		} catch (ServiceException e) {
+			throw new WebServiceNotAvailable(
+					"The method threw a ServiceException");
+		}
+		return politicalParties;
+	}
 
 	private Deputy getOneDeputyFromWebService(int idParliamentary)
 			throws WebServiceNotAvailable {

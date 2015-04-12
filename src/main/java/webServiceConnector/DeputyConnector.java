@@ -10,6 +10,7 @@ import java.util.List;
 import javax.xml.rpc.ServiceException;
 
 import model.Deputy;
+import model.PoliticalParty;
 
 import org.apache.axis.message.MessageElement;
 import org.w3c.dom.Node;
@@ -17,6 +18,8 @@ import org.w3c.dom.Node;
 import br.gov.camara.www.SitCamaraWS.Deputados.DeputadosLocator;
 import br.gov.camara.www.SitCamaraWS.Deputados.DeputadosSoapStub;
 import br.gov.camara.www.SitCamaraWS.Deputados.ObterDeputadosResponseObterDeputadosResult;
+import br.gov.camara.www.SitCamaraWS.Deputados.ObterPartidosCDResponseObterPartidosCDResult;
+import exception.PoliticalPartyExtinct;
 
 public class DeputyConnector {
 	public DeputyConnector() {
@@ -31,12 +34,34 @@ public class DeputyConnector {
 		@SuppressWarnings("unchecked")
 		Iterator<MessageElement> iterator = deputiesXML.getChildElements();
 
+		List<PoliticalParty> politicalParties = this.getAllPoliticalParties();
+
 		while (iterator.hasNext()) {
 			MessageElement deputyXML = iterator.next();
 			Deputy deputy = parseDeputy(deputyXML);
+			deputy.setPoliticalParty(this.findPoliticalPartyOnList(deputyXML,
+					politicalParties));
 			deputies.add(deputy);
 		}
 		return deputies;
+	}
+
+	private PoliticalParty findPoliticalPartyOnList(MessageElement deputyXML,
+			List<PoliticalParty> politicalParties) {
+		String politicalPartyAchronym = this.getTextFromXML(deputyXML,
+				"partido");
+		PoliticalParty selectedPoliticalParty = null;
+
+		Iterator<PoliticalParty> iterator = politicalParties.iterator();
+		while (iterator.hasNext()) {
+			PoliticalParty politicalParty = iterator.next();
+			if (politicalParty.getAchronym().equalsIgnoreCase(
+					politicalPartyAchronym)) {
+				selectedPoliticalParty = politicalParty;
+			}
+		}
+
+		return selectedPoliticalParty;
 	}
 
 	public Deputy getOneDeputy(int idParliamentary) throws RemoteException,
@@ -58,16 +83,59 @@ public class DeputyConnector {
 		return deputy;
 	}
 
+	public List<PoliticalParty> getAllPoliticalParties()
+			throws MalformedURLException, RemoteException, ServiceException {
+		MessageElement messageElement = this.getPoliticalPartyResponse();
+		List<PoliticalParty> listOfParties = this
+				.parsePoliticalParties(messageElement);
+		return listOfParties;
+	}
+
+	private List<PoliticalParty> parsePoliticalParties(
+			MessageElement messageElement) {
+		@SuppressWarnings("unchecked")
+		Iterator<MessageElement> iterator = messageElement.getChildElements();
+		List<PoliticalParty> listOfParties = new ArrayList<PoliticalParty>();
+		while (iterator.hasNext()) {
+			MessageElement politicalPartyXML = iterator.next();
+			try {
+				PoliticalParty politicalParty = this
+						.parsePoliticalParty(politicalPartyXML);
+				listOfParties.add(politicalParty);
+			} catch (PoliticalPartyExtinct e) {
+				// Nothing to do.
+			}
+		}
+		return listOfParties;
+	}
+
+	private PoliticalParty parsePoliticalParty(MessageElement politicalPartyXML)
+			throws PoliticalPartyExtinct {
+		try {
+			String extinctionDate = this.getTextFromXML(politicalPartyXML,
+					"dataExtincao");
+			throw new PoliticalPartyExtinct("Political party is extinct since "
+					+ extinctionDate);
+		} catch (NullPointerException e) {
+			PoliticalParty politicalParty = new PoliticalParty();
+			politicalParty.setAchronym(this.getTextFromXML(politicalPartyXML,
+					"siglaPartido"));
+			politicalParty.setName(this.getTextFromXML(politicalPartyXML,
+					"nomePartido"));
+			return politicalParty;
+		}
+	}
+
 	private Deputy parseDeputy(MessageElement deputyXML) {
 		Deputy deputy = new Deputy();
 
 		deputy.setCivilName(this.getTextFromXML(deputyXML, "nome"));
 		deputy.setTreatmentName(this.getTextFromXML(deputyXML,
 				"nomeParlamentar"));
-		deputy.setId(this.getTextFromXML(deputyXML, "ideCadastro"));
+		deputy.setId(Integer.parseInt(this.getTextFromXML(deputyXML,
+				"ideCadastro")));
 		deputy.setGender(this.getTextFromXML(deputyXML, "sexo"));
 		deputy.setUf(this.getTextFromXML(deputyXML, "uf"));
-		deputy.setPoliticalParty(this.getTextFromXML(deputyXML, "partido"));
 		deputy.setOfficeNumber(Integer.parseInt(this.getTextFromXML(deputyXML,
 				"gabinete")));
 		deputy.setOfficeBuilding(Integer.parseInt(this.getTextFromXML(
@@ -99,9 +167,14 @@ public class DeputyConnector {
 		return messageElement;
 	}
 
-	/************************************************************
-	 * 
-	 */
+	private MessageElement getPoliticalPartyResponse()
+			throws MalformedURLException, ServiceException, RemoteException {
+		DeputadosSoapStub service = this.getConnection();
+		ObterPartidosCDResponseObterPartidosCDResult politicalParties = service
+				.obterPartidosCD();
+		MessageElement messageElement = politicalParties.get_any()[0];
+		return messageElement;
+	}
 
 	/**
 	 * This method makes the first connection with the web service, getting a

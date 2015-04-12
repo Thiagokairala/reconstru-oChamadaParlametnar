@@ -1,9 +1,12 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import model.Deputy;
+import model.PoliticalParty;
 
 public class DeputyDao extends GenericDao<Long, Deputy> {
 	public DeputyDao() {
@@ -13,7 +16,6 @@ public class DeputyDao extends GenericDao<Long, Deputy> {
 	public void saveDeputy(Deputy deputy) {
 		try {
 			super.beginTransaction();
-			deputy.validate();
 			super.save(deputy);
 			super.commit();
 		} catch (Exception e) {
@@ -23,13 +25,17 @@ public class DeputyDao extends GenericDao<Long, Deputy> {
 		super.close();
 	}
 
-	public void saveListOfDeputies(List<Deputy> deputies) {
+	public void saveListOfDeputies(List<Deputy> deputies,
+			List<PoliticalParty> politicalParties) {
 		try {
+			Map<String, PoliticalParty> politicalPartiesMap = this
+					.prepareMap(politicalParties);
 			super.beginTransaction();
 			Iterator<Deputy> it = deputies.iterator();
 			while (it.hasNext()) {
 				Deputy deputy = it.next();
-				deputy.validate();
+				deputy.setPoliticalParty(politicalPartiesMap.get(deputy
+						.getPoliticalParty().getAchronym()));
 				super.save(deputy);
 			}
 			super.commit();
@@ -38,6 +44,16 @@ public class DeputyDao extends GenericDao<Long, Deputy> {
 			super.rollBack();
 		}
 		super.close();
+	}
+
+	private Map<String, PoliticalParty> prepareMap(
+			List<PoliticalParty> politicalParties) {
+		Map<String, PoliticalParty> mapOfPoliticalParties = new HashMap<String, PoliticalParty>();
+		for (PoliticalParty politicalParty : politicalParties) {
+			mapOfPoliticalParties.put(politicalParty.getAchronym(),
+					politicalParty);
+		}
+		return mapOfPoliticalParties;
 	}
 
 	public List<Deputy> getAllDeputies() {
@@ -50,6 +66,18 @@ public class DeputyDao extends GenericDao<Long, Deputy> {
 		super.beginTransaction();
 		super.update(deputy);
 		super.commit();
+		super.close();
+	}
+
+	public void updateListOfDeputies(List<Deputy> deputies) {
+		super.beginTransaction();
+
+		for (Deputy deputy : deputies) {
+			super.save(deputy);
+		}
+		super.commit();
+		super.close();
+
 	}
 
 }

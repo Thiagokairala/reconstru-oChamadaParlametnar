@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,10 +21,11 @@ public class Deputy {
 	private String civilName;
 	private String phone;
 	private String email;
-	private Date nascimento;
+	private Date birthday;
 	private String gender;
 	private String uf;
-	private String politicalParty;
+	@ManyToOne(cascade = { CascadeType.ALL })
+	private PoliticalParty politicalParty;
 	private int officeNumber;
 	private int officeBuilding;
 	@ManyToMany(cascade = { CascadeType.ALL })
@@ -33,6 +35,14 @@ public class Deputy {
 
 	public Deputy() {
 
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getTreatmentName() {
@@ -51,18 +61,6 @@ public class Deputy {
 		this.civilName = civilName;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int idParliamentary) {
-		this.id = idParliamentary;
-	}
-
-	public void setId(String idParliamentary) {
-		this.id = Integer.parseInt(idParliamentary);
-	}
-
 	public String getPhone() {
 		return phone;
 	}
@@ -79,37 +77,48 @@ public class Deputy {
 		this.email = email;
 	}
 
-	public java.util.Date getNascimento() {
-		return nascimento;
+	public Date getBirthday() {
+		return birthday;
 	}
 
-	public void setNascimento(java.util.Date nascimento) {
-		this.nascimento = nascimento;
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
 	}
 
-	public void validate() {
-		if (treatmentName == null) {
-			throw new IllegalArgumentException("Name cannot be null");
-		}
+	public String getGender() {
+		return gender;
 	}
 
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
 
+	public String getUf() {
+		return uf;
 	}
 
 	public void setUf(String uf) {
 		this.uf = uf;
-
 	}
 
-	public void setPoliticalParty(String politicalParty) {
+	public PoliticalParty getPoliticalParty() {
+		return politicalParty;
+	}
+
+	public void setPoliticalParty(PoliticalParty politicalParty) {
 		this.politicalParty = politicalParty;
+	}
+
+	public int getOfficeNumber() {
+		return officeNumber;
 	}
 
 	public void setOfficeNumber(int officeNumber) {
 		this.officeNumber = officeNumber;
+	}
 
+	public int getOfficeBuilding() {
+		return officeBuilding;
 	}
 
 	public void setOfficeBuilding(int officeBuilding) {
@@ -124,12 +133,12 @@ public class Deputy {
 		this.sessionsAttended = sessionsAttended;
 	}
 
-	public void setRegistry(String registry) {
-		this.registry = registry;
-	}
-
 	public String getRegistry() {
 		return registry;
+	}
+
+	public void setRegistry(String registry) {
+		this.registry = registry;
 	}
 
 }

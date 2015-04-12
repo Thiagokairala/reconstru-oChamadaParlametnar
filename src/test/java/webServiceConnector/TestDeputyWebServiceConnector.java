@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import model.Deputy;
+import model.PoliticalParty;
 
 import org.junit.After;
 import org.junit.Before;
@@ -23,6 +24,12 @@ public class TestDeputyWebServiceConnector {
 	public void testGetAllDeputies() throws Exception {
 		List<Deputy> deputy = deputyConnector.getAllDeputies();
 		assertTrue(deputy.size() != 0);
+	}
+
+	@Test
+	public void testGetAllPoliticalParties() throws Exception {
+		List<PoliticalParty> list = deputyConnector.getAllPoliticalParties();
+		assertTrue(list.size() != 0);
 	}
 
 	@After
