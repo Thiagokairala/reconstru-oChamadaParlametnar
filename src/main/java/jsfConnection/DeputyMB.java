@@ -37,7 +37,7 @@ public class DeputyMB {
 
 			double sessionsAttended = (double) statistic.getSessionsAttended();
 			double totalOfSessions = (double) statistic.getTotalOfSessions();
-			double percentageOfPresence = sessionsAttended / totalOfSessions;
+			double percentageOfPresence = (sessionsAttended / totalOfSessions)*100;
 
 			prepareRing(percentageOfPresence, sessionsAttended,
 					totalOfSessions, statistic.getDeputy().getCivilName(),

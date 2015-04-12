@@ -27,13 +27,15 @@
 }
 
 .title {
-	margin-left: 20%; 
+	margin-left: 20%;
 	margin-top: 1%;
 	margin-right: 10%;
 }
-.descricaoProjetoNos { 
-	margin-left : 20%;
+
+.descricaoProjetoNos {
+	margin-left: 20%;
 }
+
 .descricaoProjetoNos {
 	margin-left: 20%;
 	margin-top: 1%;
@@ -49,10 +51,36 @@
 	margin-right: 10%;
 }
 
-.deputy-ring-information{
-	height: 13em;
+.deputy-ring-information {
+	width: 93%;
+	height: 8em;
 }
 
-.lineTop{
-	height: 7%;
+.deputy-ring-information h5 {
+	display: inline-block;
+	padding: 8px 20px;
+	background: -moz-linear-gradient(#444, #666);
+	background: -o-linear-gradient(#444, #666);
+	background: -webkit-linear-gradient(#444, #666);
+	background: linear-gradient(#444, #666);
+	border: 1px solid #000;
+	border-radius: 5px;
+	box-shadow: 1px 1px 0 0 #ccc;
+	color: #fff;
+	font: normal 700 21px/1 "Calibri", sans-serif;
+	text-align: center;
+	text-shadow: 1px 1px 0 #000;
+}
+
+.deputy-ring-information p { 
+	text-align: center;
+	text-shadow: 1px 1px 0 #404040 ;
+}
+
+.graphicDeputy { 
+	margin-top: 13%;
+}
+
+.lineTop {
+	height: 5%;
 }
