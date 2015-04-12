@@ -70,6 +70,7 @@ public class DeputyControl {
 	private Deputy prepareDeputy(String deputyName)
 			throws DeputyNotFoundException {
 		Deputy deputy = deputyDataParser.getOneDeputy(deputyName);
+		deputy.setSessionsAttended(sessionDataParser.getAllSessions(deputy));
 
 		assert (deputy != null);
 		assert (deputy.getCivilName().equalsIgnoreCase(deputyName) || deputy

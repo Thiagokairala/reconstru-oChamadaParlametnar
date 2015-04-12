@@ -1,5 +1,6 @@
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -26,7 +27,9 @@ public class Session {
 	private String description;
 	private transient boolean isPresent;
 
-	public Calendar getDate() {
+	public String getDate() {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		String date = simpleDateFormat.format(this.date.getTime());
 		return date;
 	}
 
@@ -77,6 +80,5 @@ public class Session {
 	public void setPresent(boolean isPresent) {
 		this.isPresent = isPresent;
 	}
-	
-	
+
 }

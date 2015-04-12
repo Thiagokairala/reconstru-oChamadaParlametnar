@@ -6,13 +6,30 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition>
-	<div class="row deputyStatisticsResult">
-			<p:ring id="custom" value="#{deputyMB.ring}" var="information"
-				easing="easeInOutBack" styleClass="deputy-ring-information">
-				<h5>#{information.property}</h5>
-				<p>#{information.propertyValue}</p>
-			</p:ring>
-			<p:chart type="pie" model="#{deputyMB.pieChart}" styleClass="graphicDeputy" />
+	<div class="deputyStatisticsResult row">
+		<p:ring id="custom" value="#{deputyMB.ring}" var="information"
+			easing="easeInOutBack" styleClass="deputy-ring-information">
+			<h5>#{information.property}</h5>
+			<p>#{information.propertyValue}</p>
+		</p:ring>
+
+		<div class="clearfix graphicDeputy">
+			<div class="col-md-6">
+				<p:dataScroller
+					value="#{deputyMB.statistic.deputy.sessionsAttended}" var="sessionVar"
+					chunkSize="4">
+
+					<f:facet name="header">
+							Sessões presenciadas
+						</f:facet>
+					<p>#{sessionVar.date} - #{sessionVar.description}</p>
+				</p:dataScroller>
+			</div>
+			<div class="col-md-6">
+				<p:chart type="pie" model="#{deputyMB.pieChart}" />
+			</div>
+
+		</div>
 	</div>
 	<!-- /.row -->
 </ui:composition>

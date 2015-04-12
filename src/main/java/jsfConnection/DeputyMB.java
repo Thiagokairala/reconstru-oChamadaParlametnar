@@ -37,7 +37,7 @@ public class DeputyMB {
 
 			double sessionsAttended = (double) statistic.getSessionsAttended();
 			double totalOfSessions = (double) statistic.getTotalOfSessions();
-			double percentageOfPresence = (sessionsAttended / totalOfSessions)*100;
+			double percentageOfPresence = (sessionsAttended / totalOfSessions) * 100;
 
 			prepareRing(percentageOfPresence, sessionsAttended,
 					totalOfSessions, statistic.getDeputy().getCivilName(),
@@ -60,7 +60,7 @@ public class DeputyMB {
 		ring.add(prepareRingNode(DeputyRingProperty.TREATMENT_NAME,
 				treatmentName));
 		ring.add(prepareRingNode(DeputyRingProperty.PERCENTAGE_OF_PRESENCE,
-				decimalFormat.format(percentageOfPresence)));
+				decimalFormat.format(percentageOfPresence) + "%"));
 		ring.add(prepareRingNode(DeputyRingProperty.SESSIONS_ATTENDED,
 				decimalFormat.format(sessionsAttended)));
 		ring.add(prepareRingNode(DeputyRingProperty.TOTAL_OF_SESSIONS,
