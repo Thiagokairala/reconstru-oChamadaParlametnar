@@ -6,24 +6,27 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition>
+
 	<div class="row">
 		<div class="col-lg-6">
 			<div class="input-group">
 				<h:form>
 					<h3>Digite o nome do seu Parlamentar:</h3>
-					<h:inputText type="text" class="form-control"
-						placeholder="Pesquise seu parlamentar..."
-						value="#{deputyMB.nameDeputy}"></h:inputText>
-					<div class="btn-group" role="group" aria-label="...">
-						<h:outputLink value="resultadoEstatistica.jsf">Pesquisar!</h:outputLink>
-					</div>
+					<h:form class="navbar-form navbar-right"
+						action="#{deputyMB.generateStatistics}">
+						<p:autoComplete value="#{deputyMB.deputyName}"
+							completeMethod="#{autoComplete.completeDeputies}" />
+						<div class="invisible-submit" style="visibility: hidden;">
+							<h:commandButton action="#{deputyMB.generateStatistics}" />
+						</div>
+						<h:form>
+							<p:growl id="growl" life="2000" />
+							<p:commandButton value="Pesquisar!" id="search" update="growl"
+								actionListener="#{deputyMB.generateStatistics}"
+								styleClass="ui-priority-primary" />
+						</h:form>
+					</h:form>
 				</h:form>
-			</div>
-			<div class="alert alert-warning alert-dismissible" role="alert">
-				<button type="button" class="close" data-dismiss="alert"
-					aria-label="Close"></button>
-				<strong>Encontrei!</strong> O nome do seu deputado e:
-				#{deputyMB.nameDeputy}
 			</div>
 			<!-- /input-group -->
 		</div>
