@@ -6,6 +6,18 @@
 	margin-right: 30%;
 }
 
+.navStatisticParty {
+	margin-left: 20%;
+	margin-top: 1%;
+	margin-right: 37%;
+}
+
+.descricaoProjetoNos {
+	margin-left: 20%;
+	margin-top: 1%;
+	margin-right: 10%;
+}
+
 .conteudo h2 {
 	margin-left: 35%;
 }
@@ -27,16 +39,6 @@
 }
 
 .title {
-	margin-left: 20%;
-	margin-top: 1%;
-	margin-right: 10%;
-}
-
-.descricaoProjetoNos {
-	margin-left: 20%;
-}
-
-.descricaoProjetoNos {
 	margin-left: 20%;
 	margin-top: 1%;
 	margin-right: 10%;
@@ -72,12 +74,12 @@
 	text-shadow: 1px 1px 0 #000;
 }
 
-.deputy-ring-information p { 
+.deputy-ring-information p {
 	text-align: center;
-	text-shadow: 1px 1px 0 #404040 ;
+	text-shadow: 1px 1px 0 #404040;
 }
 
-.graphicDeputy { 
+.graphicDeputy {
 	margin-top: 13%;
 }
 
@@ -85,6 +87,6 @@
 	height: 5%;
 }
 
-.nav-sidebar{
+.nav-sidebar {
 	
 }
