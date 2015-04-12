@@ -6,6 +6,18 @@
 	margin-right: 30%;
 }
 
+.navStatisticParty {
+	margin-left: 20%;
+	margin-top: 1%;
+	margin-right: 37%;
+}
+
+.descricaoProjetoNos {
+	margin-left: 20%;
+	margin-top: 1%;
+	margin-right: 10%;
+}
+
 .conteudo h2 {
 	margin-left: 35%;
 }
@@ -28,12 +40,6 @@
 
 .title {
 	margin-left: 20%; . descricaoProjetoNos { margin-left : 20%;
-	margin-top: 1%;
-	margin-right: 10%;
-}
-
-.descricaoProjetoNos {
-	margin-left: 20%;
 	margin-top: 1%;
 	margin-right: 10%;
 }
