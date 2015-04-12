@@ -27,11 +27,13 @@
 }
 
 .title {
-	margin-left: 20%; . descricaoProjetoNos { margin-left : 20%;
+	margin-left: 20%; 
 	margin-top: 1%;
 	margin-right: 10%;
 }
-
+.descricaoProjetoNos { 
+	margin-left : 20%;
+}
 .descricaoProjetoNos {
 	margin-left: 20%;
 	margin-top: 1%;
@@ -41,4 +43,16 @@
 .ranking {
 	margin-left: 20%;
 	margin-top: 1%;
+}
+
+.deputyStatisticsResult {
+	margin-right: 10%;
+}
+
+.deputy-ring-information{
+	height: 13em;
+}
+
+.lineTop{
+	height: 7%;
 }
