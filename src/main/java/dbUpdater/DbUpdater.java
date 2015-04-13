@@ -67,6 +67,7 @@ public class DbUpdater {
 					+ "% Parlamentares atualizados.");
 			i++;
 		}
+		deputyDao = new DeputyDao();
 		deputyDao.updateListOfDeputies(deputies);
 	}
 
