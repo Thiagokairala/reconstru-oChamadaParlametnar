@@ -11,19 +11,21 @@
 			<div class="input-group">
 				<h:form>
 					<h3>Digite a data que sua Sessão ou Reunião foi realizada:</h3>
-					<h:inputText type="text" class="form-control"
-						placeholder="Pesquise seu parlamentar..."
-						value="#{deputyControl.name}"></h:inputText>
+					<h:form id="form">
+						<p:growl id="msgs" showDetail="true" />
+
+						<h:panelGrid columns="2" cellpadding="5">
+							<p:outputLabel for="event" value="Escolha sua data: " />
+							<p:calendar id="event" value="#{calendarView.date1}">
+								<p:ajax event="dateSelect"
+									listener="#{calendarView.onDateSelect}" update="msgs" />
+							</p:calendar>
+						</h:panelGrid>
+					</h:form>
 					<div class="btn-group" role="group" aria-label="...">
 						<h:outputLink value="resultadoEstatistica.jsf">Pesquisar!</h:outputLink>
 					</div>
 				</h:form>
-			</div>
-			<div class="alert alert-warning alert-dismissible" role="alert">
-				<button type="button" class="close" data-dismiss="alert"
-					aria-label="Close"></button>
-				<strong>Encontrei!</strong> A sua sessão foi dia:
-				#{deputyControl.name}
 			</div>
 			<!-- /input-group -->
 		</div>
