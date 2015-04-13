@@ -13,23 +13,28 @@
 			<p>#{information.propertyValue}</p>
 		</p:ring>
 
-		<div class="clearfix graphicDeputy">
-			<div class="col-md-6">
-				<p:dataScroller
-					value="#{deputyMB.statistic.deputy.sessionsAttended}" var="sessionVar"
-					chunkSize="4">
+		<div class="ui-grid ui-grid-responsive">
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-6">
+					<p:dataScroller
+						value="#{deputyMB.statistic.deputy.sessionsAttended}"
+						var="sessionVar" chunkSize="4">
 
-					<f:facet name="header">
+						<f:facet name="header">
 							Sessões presenciadas
 						</f:facet>
-					<p>#{sessionVar.date} - #{sessionVar.description}</p>
-				</p:dataScroller>
+						<p>#{sessionVar.date} - #{sessionVar.description}</p>
+					</p:dataScroller>
+				</div>
+				<div class="ui-grid-col-6">
+					<p:chart type="pie" model="#{deputyMB.pieChart}" />
+				</div>
 			</div>
-			<div class="col-md-6">
-				<p:chart type="pie" model="#{deputyMB.pieChart}" />
-			</div>
-
 		</div>
+
+
+
+
 	</div>
 	<!-- /.row -->
 </ui:composition>

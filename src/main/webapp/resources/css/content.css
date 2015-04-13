@@ -90,3 +90,17 @@
 .nav-sidebar {
 	
 }
+
+.menu>ul {
+	background-color: white;
+	border: none;
+}
+
+.menu-item {
+	background-color: white;
+}
+
+.deputyStatisticsResult {
+	margin-left: 10%;
+	margin-right: 10%;
+}
