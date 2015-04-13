@@ -2,6 +2,8 @@ package dbUpdater;
 
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.rpc.ServiceException;
@@ -50,14 +52,18 @@ public class DbUpdater {
 		DeputyDao deputyDao = new DeputyDao();
 		SessionConnector sessionConnector = new SessionConnector();
 		List<Deputy> deputies = deputyDao.getAllDeputies();
-
+		DecimalFormat decimalFormat = new DecimalFormat("0.00");
 		int i = 0;
 		int size = deputies.size();
+
+		List<Deputy> deputiesToSave = new ArrayList<Deputy>();
 		for (Deputy deputy : deputies) {
 			List<Session> sessionsAttended = sessionConnector
 					.getAllSessions(deputy);
 			deputy.setSessionsAttended(sessionsAttended);
-			System.out.println(((double) i / (double) size) * 100
+			deputiesToSave.add(deputy);
+			System.out.println(decimalFormat
+					.format(((double) i / (double) size) * 100)
 					+ "% Parlamentares atualizados.");
 			i++;
 		}

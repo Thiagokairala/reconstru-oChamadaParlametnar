@@ -73,7 +73,7 @@ public class DeputyDao extends GenericDao<Long, Deputy> {
 		super.beginTransaction();
 
 		for (Deputy deputy : deputies) {
-			super.save(deputy);
+			super.update(deputy);
 		}
 		super.commit();
 		super.close();
