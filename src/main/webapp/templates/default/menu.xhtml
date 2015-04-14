@@ -7,14 +7,15 @@
 <ui:composition>
 	<div class="dock">
 		<p:stack icon="/images/basket.png" expanded="true">
-			<p:menuitem value="Início" icon="/images/home.png" url="index" />
+			<p:menuitem value="Início" icon="/images/home.png" outcome="index" />
 			<p:menuitem value="Parlamentar" icon="/images/deputy.png"
-				url="followDeputy" />
+				outcome="followDeputy" />
 			<p:menuitem value="Partido" icon="/images/politicalParty.png"
-				url="followParty" />
+				outcome="followParty" />
 			<p:menuitem value="Sessões" icon="/images/sessions.png"
-				url="followSession" />
-			<p:menuitem value="Ranking" icon="/images/ranking.png" url="ranking" />
+				outcome="followSession" />
+			<p:menuitem value="Ranking" icon="/images/ranking.png"
+				outcome="ranking" />
 		</p:stack>
 	</div>
 </ui:composition>
