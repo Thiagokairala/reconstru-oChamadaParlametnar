@@ -1,5 +1,9 @@
 @CHARSET "UTF-8";
 
+body {
+	z-index: 0;
+}
+
 .conteudo {
 	background-color: #C0C0C0;
 	margin-left: 20%;
@@ -91,16 +95,33 @@
 	
 }
 
-.menu>ul {
-	background-color: white;
-	border: none;
-}
-
-.menu-item {
-	background-color: white;
-}
-
 .deputyStatisticsResult {
 	margin-left: 10%;
 	margin-right: 10%;
+}
+
+.dock>div>div {
+	background-color: white;
+	border: none;
+	width: 20%;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	padding: 1%;
+}
+
+.header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+.deputy-pie-chart {
+	width: 70%;
+}
+
+.margin-large {
+	margin-top: 10%;
 }

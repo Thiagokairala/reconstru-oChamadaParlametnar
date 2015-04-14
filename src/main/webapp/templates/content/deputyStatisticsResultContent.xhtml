@@ -13,7 +13,7 @@
 			<p>#{information.propertyValue}</p>
 		</p:ring>
 
-		<div class="ui-grid ui-grid-responsive">
+		<div class="ui-grid ui-grid-responsive margin-large">
 			<div class="ui-grid-row">
 				<div class="ui-grid-col-6">
 					<p:dataScroller
@@ -27,7 +27,8 @@
 					</p:dataScroller>
 				</div>
 				<div class="ui-grid-col-6">
-					<p:chart type="pie" model="#{deputyMB.pieChart}" />
+					<p:chart type="pie" model="#{deputyMB.pieChart}"
+						styleClass="deputy-pie-chart" />
 				</div>
 			</div>
 		</div>

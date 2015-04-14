@@ -89,7 +89,7 @@ public class DeputyMB {
 		pieChart.setLegendPosition("e");
 		pieChart.setFill(false);
 		pieChart.setShowDataLabels(true);
-		pieChart.setDiameter(150);
+		pieChart.setDiameter(100);
 	}
 
 	public Deputy getDeputy() {
