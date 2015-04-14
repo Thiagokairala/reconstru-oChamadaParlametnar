@@ -125,3 +125,7 @@ body {
 .margin-large {
 	margin-top: 10%;
 }
+
+.paginated {
+	width: 80%;
+}

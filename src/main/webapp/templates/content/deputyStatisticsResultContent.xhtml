@@ -16,15 +16,18 @@
 		<div class="ui-grid ui-grid-responsive margin-large">
 			<div class="ui-grid-row">
 				<div class="ui-grid-col-6">
-					<p:dataScroller
-						value="#{deputyMB.statistic.deputy.sessionsAttended}"
-						var="sessionVar" chunkSize="4">
-
+					<p:dataList value="#{deputyMB.statistic.deputy.sessionsAttended}"
+						var="sessionVar" type="unordered" itemType="none" paginator="true"
+						rows="8" styleClass="paginated">
 						<f:facet name="header">
 							Sessões presenciadas
-						</f:facet>
-						<p>#{sessionVar.date} - #{sessionVar.description}</p>
-					</p:dataScroller>
+				       	</f:facet>
+
+						<h:outputText
+							value="#{sessionVar.date} - #{sessionVar.description}"
+							style="display:inline-block" />
+					</p:dataList>
+
 				</div>
 				<div class="ui-grid-col-6">
 					<p:chart type="pie" model="#{deputyMB.pieChart}"
