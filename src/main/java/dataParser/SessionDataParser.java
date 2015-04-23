@@ -2,6 +2,7 @@ package dataParser;
 
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.rpc.ServiceException;

@@ -4,9 +4,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import model.PoliticalParty;
-import control.DeputyControl;
 import control.PoliticalPartyControl;
 import exception.DeputyNotFoundException;
+import exception.PoliticalPartyExtinct;
 
 @ManagedBean
 @SessionScoped
@@ -15,16 +15,12 @@ public class PartyMB {
 	private String partyName;
 	private Double percentage;
 	
-	public String generateStatistics() {
+	public String generateStatistics() throws PoliticalPartyExtinct, DeputyNotFoundException {
 		String nextPage;
 		PoliticalPartyControl deputyControl = new PoliticalPartyControl();
-		try {
-			percentage = deputyControl.generateStatisticParty(partyName);
+		percentage = deputyControl.generateStatisticParty(partyName);
 
-			nextPage = "statisticParty";
-		} catch (DeputyNotFoundException e) {
-			nextPage = "partyNotFound";
-		}
+		nextPage = "statisticParty";
 
 		return nextPage;
 	}

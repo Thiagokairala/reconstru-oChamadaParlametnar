@@ -22,17 +22,16 @@ public class PoliticalPartyControl {
 			throws DeputyNotFoundException {
 		Statistic statistic = new Statistic();
 		DeputyControl deputyControl = new DeputyControl();
-		List<Deputy> deputiesOfThisParty;
+		List<Deputy> deputiesOfThisParty = new ArrayList<Deputy>();
 		deputiesOfThisParty = listAllDeputiesOfThisParty(partyName);
 		double percentage;
 		double sum = 0; /* Is to calculate the sum of the percentages to compare with the total. */
 		double numberOfDeputies = 0;
-		
+		numberOfDeputies = deputiesOfThisParty.size();
 		for(Deputy deputy : deputiesOfThisParty){
 			statistic = deputyControl.generateStatistic(deputy.getCivilName());
 			percentage = (statistic.getSessionsAttended()/statistic.getTotalOfSessions())*100;
 			sum = sum + percentage;
-			numberOfDeputies++;
 		}
 		
 		double statisticOfTheParty;
@@ -45,11 +44,11 @@ public class PoliticalPartyControl {
 		
 		PoliticalParty party = politicalPartyParser.getOneParty(partyName);
 		List<Deputy> deputies = deputyDataParser.getAllDeputies();
-		List<Deputy> deputiesOfThisParty = null;
+		List<Deputy> deputiesOfThisParty = new ArrayList<Deputy>();
 		
 		for (Deputy deputy : deputies) {
-			if (deputy.getPoliticalParty().equals(party)) {
-				
+			if (deputy.getPoliticalParty().getName().equals(partyName)) {
+				deputiesOfThisParty.add(deputy);
 			}
 		}
 		
