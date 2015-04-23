@@ -1,5 +1,6 @@
 package control;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Deputy;
@@ -69,6 +70,28 @@ public class PoliticalPartyControl {
 		int numberOfSessions = listOfSessions.size();
 
 		return numberOfSessions;
+	}
+	
+	public List<String> getAllNameOfAllParties(String prefix) {
+		List<PoliticalParty> allParties = politicalPartyParser.getAllPoliticalParties();
+
+		List<String> allNames = new ArrayList<String>();
+		for (PoliticalParty party : allParties) {
+			if (party.getName().toLowerCase()
+					.startsWith(prefix.toLowerCase())) {
+				allNames.add(party.getName());
+			} else {
+				// nothing to do.
+			}
+
+			if (party.getAchronym().toLowerCase()
+					.startsWith(prefix.toLowerCase())) {
+				allNames.add(party.getAchronym());
+			} else {
+				// nothing to do.
+			}
+		}
+		return allNames;
 	}
 	
 
