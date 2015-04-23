@@ -7,8 +7,10 @@ import java.util.List;
 import javax.xml.rpc.ServiceException;
 
 import webServiceConnector.DeputyConnector;
+import model.Deputy;
 import model.PoliticalParty;
 import dao.PoliticalPartyDao;
+import exception.DeputyNotFoundException;
 import exception.WebServiceNotAvailable;
 
 public class PoliticalPartyParser {
@@ -26,6 +28,40 @@ public class PoliticalPartyParser {
 		PoliticalPartyDao partyDao = new PoliticalPartyDao();
 		PoliticalParty party = partyDao.getById(idParty);
 		return party;
+	}
+	
+	public List<PoliticalParty> getAllParties() {
+		List<PoliticalParty> listWithAllParties;
+
+		try {
+			listWithAllParties = this.getAllPoliticalPartiesFromWebService();
+		} catch (WebServiceNotAvailable e) {
+			listWithAllParties = this.getAllPoliticalPartiesFromDataBase();
+		}
+
+		assert (listWithAllParties != null);
+		assert (listWithAllParties.size() != 0);
+		return listWithAllParties;
+	}
+	
+	public PoliticalParty getOneParty(String partyName)
+			throws DeputyNotFoundException {
+		List<PoliticalParty> parties = this.getAllParties();
+		PoliticalParty partyComplete = null;
+
+		for (PoliticalParty party : parties) {
+			boolean exists = party.getName().equalsIgnoreCase(partyName)
+					|| party.getAchronym().equalsIgnoreCase(partyName);
+			if (exists) {
+				partyComplete = party;
+			}
+		}
+
+		if (partyComplete == null) {
+			throw new DeputyNotFoundException("Invalid username"); /*Change to PartyNotFound..*/
+		} else {
+			return partyComplete;
+		}
 	}
 	
 	public List<PoliticalParty> getAllPoliticalParties() {
@@ -70,4 +106,5 @@ public class PoliticalPartyParser {
 		}
 		return politicalParties;
 	}
+	
 }
