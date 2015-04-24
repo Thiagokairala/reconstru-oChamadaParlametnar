@@ -1,5 +1,6 @@
 package control;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class PoliticalPartyControl {
 			totalSessions = statistic.getTotalOfSessions();
 			
 			percentage = (sessionsAttended*100)/totalSessions;
+		
 			
 			sum = sum + percentage;
 			System.out.println("Porcentagem :" + percentage);

@@ -1,5 +1,7 @@
 package jsfConnection;
 
+import java.text.DecimalFormat;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -14,12 +16,15 @@ public class PartyMB {
 	private PoliticalParty party;
 	private String partyName;
 	private Double percentage;
+	private String percentageFormat;
 	
+
 	public String generateStatistics() throws PoliticalPartyExtinct, DeputyNotFoundException {
 		String nextPage;
 		PoliticalPartyControl deputyControl = new PoliticalPartyControl();
 		percentage = deputyControl.generateStatisticParty(partyName);
-
+		DecimalFormat df = new DecimalFormat("#,###.00");  
+		percentageFormat = df.format(percentage); 
 		nextPage = "statisticParty";
 
 		return nextPage;
@@ -44,7 +49,13 @@ public class PartyMB {
 		this.percentage = percentage;
 	}
 	
-	
+	public String getPercentageFormat() {
+		return percentageFormat;
+	}
+
+	public void setPercentageFormat(String percentageFormat) {
+		this.percentageFormat = percentageFormat;
+	}
 	
 	
 }

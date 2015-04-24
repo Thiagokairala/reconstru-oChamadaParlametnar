@@ -12,7 +12,7 @@
 	<!-- /.row -->
 	<div class="progress">
 		<div class="progress-bar" role="progressbar" aria-valuenow="88"
-			aria-valuemin="0" aria-valuemax="100" style="width: #{partyMB.percentage}%;">#{partyMB.percentage}%</div>
+			aria-valuemin="0" aria-valuemax="100" style="width: #{partyMB.percentage}%;">#{partyMB.percentageFormat}%</div>
 	</div>
 
 	<ul class="nav nav-tabs navStatisticParty">
@@ -20,7 +20,7 @@
 		<li role="presentation"><a href="#">Sessões Menos Representadas</a></li>
 		<li role="presentation"><a href="#">Sessões Mais Representadas</a></li>
 	</ul>
-	<h2>Sua porcentagem é #{partyMB.percentage}</h2>
+	<h2>Sua porcentagem é #{partyMB.percentageFormat}</h2>
 	
 </ui:composition>
 
