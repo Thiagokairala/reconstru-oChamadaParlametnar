@@ -56,11 +56,11 @@ public class DeputyDataParser {
 	public List<Deputy> getAllDeputies() {
 		List<Deputy> listWithAllDeputies;
 
-		try {
-			listWithAllDeputies = this.getAllDeputiesFromWebService();
-		} catch (WebServiceNotAvailable e) {
+		//try { (Lento demais)
+			//listWithAllDeputies = this.getAllDeputiesFromWebService();
+		//} catch (WebServiceNotAvailable e) {
 			listWithAllDeputies = this.getAllDeputiesFromDataBase();
-		}
+		//}
 
 		assert (listWithAllDeputies != null);
 		assert (listWithAllDeputies.size() != 0);

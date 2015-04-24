@@ -27,11 +27,18 @@ public class PoliticalPartyControl {
 		double percentage;
 		double sum = 0; /* Is to calculate the sum of the percentages to compare with the total. */
 		double numberOfDeputies = 0;
+		double sessionsAttended = 0;
+		double totalSessions = 0;
 		numberOfDeputies = deputiesOfThisParty.size();
 		for(Deputy deputy : deputiesOfThisParty){
 			statistic = deputyControl.generateStatistic(deputy.getCivilName());
-			percentage = (statistic.getSessionsAttended()/statistic.getTotalOfSessions())*100;
+			sessionsAttended = statistic.getSessionsAttended();
+			totalSessions = statistic.getTotalOfSessions();
+			
+			percentage = (sessionsAttended*100)/totalSessions;
+			
 			sum = sum + percentage;
+			System.out.println("Porcentagem :" + percentage);
 		}
 		
 		double statisticOfTheParty;
@@ -42,7 +49,6 @@ public class PoliticalPartyControl {
 	
 	private List<Deputy> listAllDeputiesOfThisParty(String partyName) throws DeputyNotFoundException {
 		
-		PoliticalParty party = politicalPartyParser.getOneParty(partyName);
 		List<Deputy> deputies = deputyDataParser.getAllDeputies();
 		List<Deputy> deputiesOfThisParty = new ArrayList<Deputy>();
 		
