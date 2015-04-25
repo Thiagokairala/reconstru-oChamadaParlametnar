@@ -12,6 +12,7 @@ import dataParser.DeputyDataParser;
 import dataParser.PoliticalPartyParser;
 import dataParser.SessionDataParser;
 import exception.DeputyNotFoundException;
+import exception.PoliticalPartyNotFoundException;
 
 public class PoliticalPartyControl {
 	
@@ -77,6 +78,14 @@ public class PoliticalPartyControl {
 		int numberOfSessions = listOfSessions.size();
 
 		return numberOfSessions;
+	}
+	
+	private Session SearchForSession(Session session ) throws PoliticalPartyNotFoundException {
+		
+		List<Session> sessions = sessionDataParser
+				.getAllSessions();	
+			return session;
+		
 	}
 	
 	public List<String> getAllNameOfAllParties(String prefix) {
