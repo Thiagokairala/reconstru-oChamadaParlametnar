@@ -36,16 +36,22 @@ body {
 	margin-right: 10%;
 }
 
-.progress {
-	margin-left: 20%;
-	margin-top: 3%;
+.allProgress {
+	width: 50%;
+	float: left;
+	margin-top: 1%;
+	margin-left: 2%;
+}
+
+.auxNews {
+	float: right;
 	margin-right: 10%;
 }
 
 .title {
-	margin-left: 20%;
+	margin-left: 5%;
 	margin-top: 1%;
-	margin-right: 10%;
+	height: 5%;
 }
 
 .ranking {
@@ -272,3 +278,4 @@ li:hover > .sub-menu {
   color: #F2762E !important; /* !important VS .menu a:hover */
 }
 /* END: Подменю */
+
