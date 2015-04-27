@@ -37,7 +37,7 @@ body {
 }
 
 .allProgress {
-	width: 50%;
+	width: 47%;
 	float: left;
 	margin-top: 1%;
 	margin-left: 2%;
@@ -324,3 +324,8 @@ textarea {
   font-weight:700;
 }
 [type="submit"]:hover { background:#CC4949; }
+
+.panel-default{
+	float: left;
+	margin-left: 2%;
+}
