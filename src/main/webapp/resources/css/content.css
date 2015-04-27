@@ -52,6 +52,7 @@ body {
 	margin-left: 5%;
 	margin-top: 1%;
 	height: 5%;
+	width: 40%;
 }
 
 .ranking {
@@ -325,7 +326,14 @@ textarea {
 }
 [type="submit"]:hover { background:#CC4949; }
 
-.panel-default{
+.col-sm-6{
 	float: left;
-	margin-left: 2%;
+	margin-left: 1%;
+	width: 49%;
+}
+
+.newsPanel{
+	width: 40%;
+	float: right;
+	margin-right: 4%;
 }
