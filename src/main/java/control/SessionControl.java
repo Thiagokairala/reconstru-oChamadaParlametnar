@@ -17,13 +17,18 @@ import exception.PoliticalPartyNotFoundException;
 public class SessionControl {
 	
 		private SessionDataParser sessionDataParser = new  SessionDataParser();
-		
-
-		private Session SearchForSession(Session session ) throws PoliticalPartyNotFoundException {
+	
+		private Session SearchForSession(Session session ) 
+				throws PoliticalPartyNotFoundException {
 			List<Session> listWithSessions = sessionDataParser
 					.getAllSessions();	
-				return session;
-		
-	}
+			List <Session> FindSession = listWithSessions;
+			
+			for(Session findSession : listWithSessions){
+				listWithSessions.add(SearchForSession(findSession));
+			}
+				
+				return session ;
+		}
 
 }
