@@ -18,7 +18,7 @@ public class SessionControl {
 	
 		private SessionDataParser sessionDataParser = new  SessionDataParser();
 	
-		private Session SearchForSession(Session session ) 
+		public Session SearchForSession(Session dateSession ) 
 				throws PoliticalPartyNotFoundException {
 			List<Session> listWithSessions = sessionDataParser
 					.getAllSessions();	
@@ -26,9 +26,16 @@ public class SessionControl {
 			
 			for(Session findSession : listWithSessions){
 				listWithSessions.add(SearchForSession(findSession));
-			}
 				
-				return session ;
+				if(dateSession == findSession) {
+					return dateSession;
+				}
+				else{
+					//...
+					}
+				}
+						
+				return dateSession ;
 		}
 
 }
