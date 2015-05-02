@@ -51,6 +51,28 @@ public class DeputyMB {
 		return nextPage;
 	}
 
+	public String worstDeputyStatistic() {
+		String nextPage;
+		DeputyControl deputycontrol = new DeputyControl();
+		try {
+			statistic = deputycontrol.generateStatistic(deputyName);
+			double sessionsAttended = (double) statistic.getSessionsAttended();
+			double totalOfSessions = (double) statistic.getTotalOfSessions();
+			double percentageOfPresence = (totalOfSessions - sessionsAttended) * 100;
+
+			prepareRing(percentageOfPresence, sessionsAttended,
+					totalOfSessions, statistic.getDeputy().getCivilName(),
+					statistic.getDeputy().getTreatmentName());
+			createPieModel();
+			nextPage = "deputyStatisticsResult";
+		} catch (DeputyNotFoundException e) {
+			nextPage = "deputyNotFound";
+		}
+
+		return nextPage;
+
+	}
+
 	private void prepareRing(double percentageOfPresence,
 			double sessionsAttended, double totalOfSessions, String civilName,
 			String treatmentName) {
