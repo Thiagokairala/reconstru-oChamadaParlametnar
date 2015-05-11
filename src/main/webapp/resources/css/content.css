@@ -1,7 +1,15 @@
 @CHARSET "UTF-8";
 
+html {
+	height: 100%;
+	width: 100%;
+}
+
 body {
 	z-index: 0;
+	height: 100%;
+	width: 100%;
+	padding: 0;
 }
 
 .conteudo {
