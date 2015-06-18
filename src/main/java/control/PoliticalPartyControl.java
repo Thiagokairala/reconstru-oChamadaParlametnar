@@ -49,7 +49,7 @@ public class PoliticalPartyControl {
 		return statisticOfTheParty;
 	}
 	
-	private List<Deputy> listAllDeputiesOfThisParty(String partyName) throws DeputyNotFoundException {
+	public List<Deputy> listAllDeputiesOfThisParty(String partyName) throws DeputyNotFoundException {
 		
 		List<Deputy> deputies = deputyDataParser.getAllDeputies();
 		List<Deputy> deputiesOfThisParty = new ArrayList<Deputy>();
