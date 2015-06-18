@@ -2,26 +2,21 @@ package dataParser;
 
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.rpc.ServiceException;
 
-import dao.SessionDao;
-import exception.WebServiceNotAvailable;
 import model.Deputy;
 import model.Session;
 import webServiceConnector.SessionConnector;
+import dao.SessionDao;
+import exception.WebServiceNotAvailable;
 
 public class SessionDataParser {
 	public List<Session> getAllSessions() {
 		List<Session> listWithAllSessions;
-
-		try {
-			listWithAllSessions = this.getAllSessionsFromWS();
-		} catch (WebServiceNotAvailable e) {
-			listWithAllSessions = this.getAllSessionsFromDB();
-		}
+		
+		listWithAllSessions = this.getAllSessionsFromDB();
 
 		assert (listWithAllSessions != null);
 		assert (listWithAllSessions.size() != 0);

@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -32,6 +33,9 @@ public class Deputy {
 	@JoinTable(name = "deputy_session", joinColumns = { @JoinColumn(name = "deputy_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "session_id", nullable = false, updatable = false) })
 	private List<Session> sessionsAttended;
 	private String registry;
+
+	@OneToOne
+	private Ranking ranking;
 
 	public Deputy() {
 
@@ -141,4 +145,11 @@ public class Deputy {
 		this.registry = registry;
 	}
 
+	public Ranking getRanking() {
+		return ranking;
+	}
+
+	public void setRanking(Ranking ranking) {
+		this.ranking = ranking;
+	}
 }

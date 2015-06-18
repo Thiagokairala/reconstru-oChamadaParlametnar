@@ -19,11 +19,7 @@ public class DeputyDataParser {
 	public Deputy getOneDeputy(int idParliamentary) {
 		Deputy deputy;
 
-		try {
-			deputy = this.getOneDeputyFromWebService(idParliamentary);
-		} catch (WebServiceNotAvailable e) {
-			deputy = this.getOneDeputyFromDataBase(idParliamentary);
-		}
+		deputy = this.getOneDeputyFromDataBase(idParliamentary);
 
 		assert (deputy != null);
 		return deputy;
@@ -31,12 +27,8 @@ public class DeputyDataParser {
 
 	public List<PoliticalParty> getAllPoliticalParties() {
 		List<PoliticalParty> politicalParties;
+		politicalParties = this.getAllPoliticalPartiesFromDataBase();
 
-		try {
-			politicalParties = this.getAllPoliticalPartiesFromWebService();
-		} catch (WebServiceNotAvailable e) {
-			politicalParties = this.getAllPoliticalPartiesFromDataBase();
-		}
 		assert (politicalParties != null);
 		assert (politicalParties.size() > 0);
 
@@ -47,7 +39,7 @@ public class DeputyDataParser {
 		PoliticalPartyDao politicaPartyDao = new PoliticalPartyDao();
 		List<PoliticalParty> politicalParties = politicaPartyDao
 				.getAllPoliticalParties();
-		
+
 		assert (politicalParties != null);
 		assert (politicalParties.size() > 0);
 		return politicalParties;
@@ -56,11 +48,7 @@ public class DeputyDataParser {
 	public List<Deputy> getAllDeputies() {
 		List<Deputy> listWithAllDeputies;
 
-		//try { (Lento demais)
-			//listWithAllDeputies = this.getAllDeputiesFromWebService();
-		//} catch (WebServiceNotAvailable e) {
-			listWithAllDeputies = this.getAllDeputiesFromDataBase();
-		//}
+		listWithAllDeputies = this.getAllDeputiesFromDataBase();
 
 		assert (listWithAllDeputies != null);
 		assert (listWithAllDeputies.size() != 0);
