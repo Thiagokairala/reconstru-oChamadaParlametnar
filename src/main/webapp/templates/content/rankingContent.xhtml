@@ -7,7 +7,9 @@
 
 <ui:composition>
 	<div class="ranking">
-		<h1>PÁGINA EM CONSTRUÇÃO..</h1>
+		<ui:repeat var="deputy" value="#{rankingMB.allDeputies}">
+			<p>Nome: #{deputy.treatmentName}, porcentagem: #{deputy.ranking.percentage}</p>
+		</ui:repeat>
 	</div>
 </ui:composition>
 

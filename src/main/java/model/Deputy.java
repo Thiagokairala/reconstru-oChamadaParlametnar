@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "deputy")
-public class Deputy {
+public class Deputy implements Comparable<Deputy> {
 	@Id
 	private int id;
 	private String treatmentName;
@@ -151,5 +151,13 @@ public class Deputy {
 
 	public void setRanking(Ranking ranking) {
 		this.ranking = ranking;
+	}
+
+	@Override
+	public int compareTo(Deputy o) {
+		int value = (int) (o.getRanking().getPercentage() * 100 - this
+				.getRanking().getPercentage() * 100);
+
+		return value;
 	}
 }
