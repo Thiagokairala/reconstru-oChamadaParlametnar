@@ -28,23 +28,16 @@ public class PoliticalPartyControl {
 		double percentage;
 		double sum = 0; /* Is to calculate the sum of the percentages to compare with the total. */
 		double numberOfDeputies = 0;
-		double sessionsAttended = 0;
-		double totalSessions = 0;
+
 		numberOfDeputies = deputiesOfThisParty.size();
 		for(Deputy deputy : deputiesOfThisParty){
-			statistic = deputyControl.generateStatistic(deputy.getCivilName());
-			sessionsAttended = statistic.getSessionsAttended();
-			totalSessions = statistic.getTotalOfSessions();
-			
-			percentage = (sessionsAttended*100)/totalSessions;
-		
-			
+			percentage = deputy.getRanking().getPercentage();		
 			sum = sum + percentage;
 			System.out.println("Porcentagem :" + percentage);
 		}
 		
 		double statisticOfTheParty;
-		statisticOfTheParty = sum/numberOfDeputies;
+		statisticOfTheParty = (sum/numberOfDeputies) * 100;
 		
 		return statisticOfTheParty;
 	}
