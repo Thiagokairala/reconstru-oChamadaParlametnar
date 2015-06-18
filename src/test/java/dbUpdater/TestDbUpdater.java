@@ -13,7 +13,7 @@ public class TestDbUpdater {
 	public void testDbUpdater() throws RemoteException, MalformedURLException,
 			ServiceException {
 		DbUpdater dbUpdater = new DbUpdater();
-		dbUpdater.updateTables();
+		dbUpdater.updateTables();	
 	}
 
 }

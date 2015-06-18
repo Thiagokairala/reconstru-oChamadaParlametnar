@@ -1,10 +1,12 @@
 package jsfConnection;
 
 import java.text.DecimalFormat;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import model.Deputy;
 import model.PoliticalParty;
 import control.PoliticalPartyControl;
 import exception.DeputyNotFoundException;
@@ -30,6 +32,11 @@ public class PartyMB {
 		return nextPage;
 	}
 	
+	public List<Deputy> getAllDeputiesOfThisParty() throws DeputyNotFoundException {
+		PoliticalPartyControl deputyControl = new PoliticalPartyControl();
+		List<Deputy> deputiesOfThisParty = deputyControl.listAllDeputiesOfThisParty(partyName);
+		return deputiesOfThisParty;
+	}
 	public PoliticalParty getParty() {
 		return party;
 	}

@@ -7,20 +7,28 @@
 
 <ui:composition>
 	<div class="row">
-		<h3>PSDB - Partido da Social Democraria Brasileira</h3>
+		<h3>#{partyMB.partyName}</h3>
 	</div>
-	<div class="progress">
-		<div class="progress-bar" role="progressbar" aria-valuenow="88"
-			aria-valuemin="0" aria-valuemax="100" style="width: #{partyMB.percentage}%;">#{partyMB.percentageFormat}%</div>
+	<div class="progress_div">
+		<div class="progress">
+			<div class="progress-bar" role="progressbar" aria-valuenow="88"
+				aria-valuemin="0" aria-valuemax="100" style="width: #{partyMB.percentage}%;">#{partyMB.percentageFormat}%</div>
+		</div>
+	</div>
+	<div class ="divDeputies">
+		<p:dataList value="#{partyMB.allDeputiesOfThisParty}"
+			var="deputy" type="unordered" itemType="none" paginator="true"
+			rows="8" styleClass="paginated">
+			<f:facet name="header">
+				Deputados
+	       	</f:facet>
+	
+			<h:outputText
+				value="#{deputy.treatmentName}"
+				style="display:inline-block" />
+		</p:dataList>
 	</div>
 
-	<ul class="nav nav-tabs navStatisticParty">
-		<li role="presentation" class="active"><a href="#">Deputados</a></li>
-		<li role="presentation"><a href="#">Sessões Menos Representadas</a></li>
-		<li role="presentation"><a href="#">Sessões Mais Representadas</a></li>
-	</ul>
-	<h2>Sua porcentagem é #{partyMB.percentageFormat}</h2>
-	
 </ui:composition>
 
 </html>

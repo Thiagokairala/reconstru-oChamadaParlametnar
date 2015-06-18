@@ -12,6 +12,14 @@ body {
 	padding: 0;
 }
 
+.divDeputies {
+	width: 50%;
+	margin-left: 20%;
+}
+.progress_div {
+	padding-left: 25%;
+	padding-right: 25%;
+}
 .conteudo {
 	background-color: #C0C0C0;
 	margin-left: 20%;
