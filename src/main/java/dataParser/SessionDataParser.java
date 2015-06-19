@@ -14,9 +14,13 @@ import exception.WebServiceNotAvailable;
 
 public class SessionDataParser {
 	public List<Session> getAllSessions() {
-		List<Session> listWithAllSessions;
-		
-		listWithAllSessions = this.getAllSessionsFromDB();
+		List<Session> listWithAllSessions = null;
+
+		try {
+			listWithAllSessions = this.getAllSessionsFromWS();
+		} catch (WebServiceNotAvailable e) {
+			System.out.println("fudeu");
+		}
 
 		assert (listWithAllSessions != null);
 		assert (listWithAllSessions.size() != 0);

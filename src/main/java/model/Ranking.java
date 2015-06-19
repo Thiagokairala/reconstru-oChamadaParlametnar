@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,6 +34,12 @@ public class Ranking implements Serializable {
 
 	public void setPercentage(double percentage) {
 		this.percentage = percentage;
+	}
+
+	public String getPercentageString() {
+		DecimalFormat df = new DecimalFormat("0.##");
+
+		return df.format(this.percentage*100);
 	}
 
 }

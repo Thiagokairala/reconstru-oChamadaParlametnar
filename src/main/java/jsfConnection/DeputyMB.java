@@ -66,6 +66,8 @@ public class DeputyMB {
 		ring.add(prepareRingNode(DeputyRingProperty.TOTAL_OF_SESSIONS,
 				decimalFormat.format(totalOfSessions)));
 
+		System.out.println(decimalFormat.format(totalOfSessions));
+
 	}
 
 	private DeputyInformationRing prepareRingNode(DeputyRingProperty property,

@@ -12,6 +12,9 @@ body {
 	padding: 0;
 }
 
+.col-md-6 {
+	margin-left:27%;
+}
 .divDeputies {
 	width: 50%;
 	margin-left: 20%;
