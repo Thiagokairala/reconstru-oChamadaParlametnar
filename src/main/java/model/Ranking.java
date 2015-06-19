@@ -28,7 +28,8 @@ public class Ranking implements Serializable {
 	}
 
 	public double getPercentage() {
-		return percentage;
+
+		return percentage*100;
 	}
 
 	public void setPercentage(double percentage) {

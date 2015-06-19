@@ -6,10 +6,35 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition>
-	<div class="ranking">
-		<ui:repeat var="deputy" value="#{rankingMB.allDeputies}">
-			<p>Nome: #{deputy.treatmentName}, porcentagem: #{deputy.ranking.percentage}</p>
-		</ui:repeat>
+	<div class="col-md-6">
+		<!--    Top Five of Ranking  -->
+		<div class="panel panel-default">
+
+			<div class="panel-heading">Ranking de presença</div>
+			<div class="panel-body">
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Nome de Tratamento</th>
+								<th>Nome Civil</th>
+								<th>Porcentagem</th>
+							</tr>
+						</thead>
+						<tbody>
+							<ui:repeat var="deputy" value="#{rankingMB.allDeputies}">
+								<tr class="success">
+									<td>#{deputy.treatmentName}</td>
+									<td>#{deputy.civilName}</td>
+									<td>#{deputy.ranking.percentage * 100}</td>
+								</tr>
+							</ui:repeat>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!--  end  Context Classes  -->
 	</div>
 </ui:composition>
 
