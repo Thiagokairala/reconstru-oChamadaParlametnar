@@ -100,6 +100,7 @@ public class DbUpdater {
 		List<Deputy> deputies = deputyConnector.getAllDeputies();
 
 		deputyDao.saveListOfDeputies(deputies, politicalParties);
+
 	}
 
 }
