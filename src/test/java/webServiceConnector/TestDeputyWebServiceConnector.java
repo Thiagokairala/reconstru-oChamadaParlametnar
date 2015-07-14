@@ -20,13 +20,13 @@ public class TestDeputyWebServiceConnector {
 		deputyConnector = new DeputyConnector();
 	}
 
-	@Test
+	//@Test
 	public void testGetAllDeputies() throws Exception {
 		List<Deputy> deputy = deputyConnector.getAllDeputies();
 		assertTrue(deputy.size() != 0);
 	}
 
-	@Test
+	//@Test
 	public void testGetAllPoliticalParties() throws Exception {
 		List<PoliticalParty> list = deputyConnector.getAllPoliticalParties();
 		assertTrue(list.size() != 0);

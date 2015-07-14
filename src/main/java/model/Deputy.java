@@ -153,7 +153,6 @@ public class Deputy implements Comparable<Deputy> {
 		this.ranking = ranking;
 	}
 
-	@Override
 	public int compareTo(Deputy o) {
 		int value = (int) (o.getRanking().getPercentage() * 100 - this
 				.getRanking().getPercentage() * 100);

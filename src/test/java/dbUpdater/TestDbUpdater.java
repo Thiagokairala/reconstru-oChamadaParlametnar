@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class TestDbUpdater {
 
-	@Test
+	//@Test
 	public void testDbUpdater() throws RemoteException, MalformedURLException,
 			ServiceException {
 		DbUpdater dbUpdater = new DbUpdater();
